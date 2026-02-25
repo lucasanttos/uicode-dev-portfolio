@@ -223,7 +223,7 @@ const skills = [
 const pricingPlans = [
   {
     name: "Básico",
-    price: "R$ 79,90",
+    price: "R$ 99,90",
     period: "/ mês",
     description: "Para quem quer estar na internet sem complicação",
     features: [
@@ -237,11 +237,11 @@ const pricingPlans = [
     highlight: false,
     color: "border-white/10 hover:border-white/20",
     buttonVariant: "bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white",
-    paymentLink: "https://buy.stripe.com/00w5kvbt55NbeCo6X02oE01" 
+    paymentLink: "https://buy.stripe.com/eVq3cnfJl1wVbqc9582oE05" 
   },
   {
     name: "Premium",
-    price: "R$ 129,90",
+    price: "R$ 199,90",
     period: "/ mês",
     description: "A escolha inteligente. Domine seu mercado com todas as ferramentas de conversão.",
     features: [
@@ -257,11 +257,11 @@ const pricingPlans = [
     badge: "MAIOR RETORNO",
     color: "border-purple-500/80 shadow-[0_0_40px_rgba(168,85,247,0.4)] bg-gradient-to-b from-purple-900/20 to-transparent scale-105 z-10",
     buttonVariant: "bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-lg shadow-purple-500/40 animate-pulse-slow hover:shadow-purple-500/60 hover:scale-105",
-    paymentLink: "https://buy.stripe.com/00w6oz2WzdfD9i45SW2oE02" 
+    paymentLink: "https://buy.stripe.com/28E9ALcx96RfgKwftw2oE04" 
   },
   {
     name: "Pro",
-    price: "R$ 99,90",
+    price: "R$ 149,90",
     period: "/ mês",
     description: "Uma boa opção para começar a gerar contatos.",
     features: [
@@ -275,7 +275,7 @@ const pricingPlans = [
     highlight: false,
     color: "border-blue-500/20 hover:border-blue-500/40",
     buttonVariant: "bg-blue-900/30 text-blue-200 border border-blue-500/30 hover:bg-blue-900/50",
-    paymentLink: "https://buy.stripe.com/5kQdR140D3F379W3KO2oE00" 
+    paymentLink: "https://buy.stripe.com/aFafZ9fJl4J72TG4OS2oE06" 
   }
 ];
 
