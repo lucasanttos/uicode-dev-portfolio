@@ -1,118 +1,142 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR" dir="ltr">
   <head>
+    <!-- 1. MINHA IDENTIFICAÇÃO BÁSICA E VIEWPORT (Devem ser as primeiras linhas sempre) -->
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     
     <!-- 
-      🚀 TÍTULO 
-
+      2. MEU TÍTULO E DESCRIÇÃO PRINCIPAL (Foco em conversão e SEO)
+      Isso é o que brilha nos resultados de busca do Google.
     -->
-    <title>Criação de Sites, Lojas Virtuais e Apps | UiCode.dev</title>
+    <title>Criação de Sites, Lojas Virtuais e Apps | UiCode.site</title>
+    <meta name="description" content="Especialista em criar lojas virtuais, sites profissionais e identidade digital de alta conversão. Transforme sua visão em um império digital com a UiCode." />
+    <meta name="keywords" content="criar site, criar loja virtual, criar app, desenvolvimento web, agência digital, identidade digital, landing page, uicode" />
+    <meta name="author" content="UiCode Agency - Lucas Santos" />
+    
+    <!-- 3. PRECONNECTS E PERFORMANCE (Carrega minhas fontes de forma prioritária) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
     <!-- 
-       DESCRIÇÃO 
+      4. MEUS ÍCONES E TEMA VISUAL
+      Como meu site aparece na aba do navegador e ao ser salvo no celular.
     -->
-    <meta name="description" content="Desenvolvimento de sites profissionais, lojas virtuais, landing pages de alta conversão e aplicativos móveis. Transforme sua identidade digital com a UiCode. Solicite um orçamento!" />
-    
-    <!-- PALAVRAS-CHAVE (Keywords) -->
-    <meta name="keywords" content="criar site, criar loja virtual, desenvolvimento web, programador react, landing page, criar aplicativo, identidade digital, site profissional, uicode" />
-    
-    <!-- AUTOR E ROBÔS -->
-    <meta name="author" content="UiCode.dev - Lucas Santos" />
-    <meta name="robots" content="index, follow" />
-    
-    <!-- CANONICAL URL (Evita conteúdo duplicado) -->
-    <link rel="canonical" href="https://uicode.site/" />
+    <link rel="icon" type="image/jpeg" href="/uicode.jpeg" />
+    <link rel="apple-touch-icon" href="/uicode.jpeg" /> <!-- Ícone nativo para iOS (iPhone) -->
+    <meta name="theme-color" content="#030303" /> <!-- Combina com o fundo do App.jsx -->
 
     <!-- 
-      📱 OPEN GRAPH (WhatsApp, Facebook, LinkedIn)
-      Como o site aparece quando o link é enviado.
+      5. MINHAS META TAGS SOCIAIS (Open Graph)
+      O cartãozinho elegante que aparece quando envio meu link no WhatsApp ou LinkedIn.
     -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://uicode.site/" />
-    <meta property="og:title" content="UiCode | Soluções Digitais Profissionais" />
-    <meta property="og:description" content="Precisa de um site ou loja virtual? Desenvolvemos soluções modernas e otimizadas para o seu negócio crescer na internet." />
-    <!-- DICA: Crie uma imagem de capa 1200x630px chamada 'og-image.png' e coloque na pasta public -->
+    <meta property="og:site_name" content="UiCode Agency" />
+    <meta property="og:title" content="UiCode | Agência Digital Premium" />
+    <meta property="og:description" content="Desenvolvemos Lojas Virtuais, Sites Institucionais e Apps de alta performance para escalar o seu negócio." />
     <meta property="og:image" content="https://uicode.site/uicode.jpeg" />
+    <meta property="og:image:alt" content="Logo e Identidade Visual da UiCode Agency" />
 
-    <!-- TWITTER CARDS -->
+    <!-- 6. META TAGS PARA TWITTER (X) -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Criação de Sites e Apps | UiCode.dev" />
-    <meta name="twitter:description" content="Desenvolvimento Fullstack de alta performance. React, Node.js e Mobile." />
+    <meta name="twitter:title" content="UiCode | Agência Digital Premium" />
+    <meta name="twitter:description" content="Construa o principal ativo de vendas da sua empresa com tecnologia de ponta." />
     <meta name="twitter:image" content="https://uicode.site/uicode.jpeg" />
 
-    <!-- FAVICON E TEMA -->
-    <link rel="icon" type="image/png" href="/uicode.jpeg" />
-    <meta name="theme-color" content="#05050A" />
-
-    <!-- FONTS (Performance: Preconnect) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- 7. CANONICAL URL & ROBÔS (Digo ao Google que sou a fonte original) -->
+    <link rel="canonical" href="https://uicode.site/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
     <!-- 
-      🧠 SCHEMA MARKUP (JSON-LD)
-      Isso ensina ao Google que você é um prestador de serviço profissional.
-      Ajuda muito no SEO Local e em buscas específicas.
+      8. MEU SCHEMA MARKUP (JSON-LD)
+      Aqui eu explico na linguagem dos robôs do Google os serviços exatos que eu vendo.
+      Eleva muito a chance de eu aparecer no topo das pesquisas locais e diretas.
     -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
-        "name": "UiCode.dev",
+        "name": "UiCode.site",
         "image": "https://uicode.site/uicode.jpeg",
         "@id": "https://uicode.site",
         "url": "https://uicode.site",
-        "telephone": "", 
-        "priceRange": "$$",
+        "telephone": "+5511916474626",
+        "priceRange": "$$$",
         "address": {
           "@type": "PostalAddress",
           "addressCountry": "BR"
         },
-        "description": "Agência de desenvolvimento web especializada em criação de sites, e-commerce e aplicativos mobile.",
+        "description": "Agência de desenvolvimento web focada em criação de lojas virtuais, sites de alta conversão e aplicativos mobile.",
         "offers": {
-          "@type": "Offer",
-          "itemOffered": [
-            {
-              "@type": "Service",
-              "name": "Criação de Sites Profissionais"
-            },
-            {
-              "@type": "Service",
-              "name": "Desenvolvimento de Lojas Virtuais"
-            },
-            {
-              "@type": "Service",
-              "name": "Criação de Landing Pages"
-            },
-            {
-              "@type": "Service",
-              "name": "Desenvolvimento de Aplicativos Mobile"
-            }
+          "@type": "AggregateOffer",
+          "offers": [
+            { "@type": "Offer", "name": "Criação de Sites Profissionais" },
+            { "@type": "Offer", "name": "Desenvolvimento de Lojas Virtuais (E-commerce)" },
+            { "@type": "Offer", "name": "Criação de Identidade Digital" },
+            { "@type": "Offer", "name": "Aplicativos Mobile Customizados" }
           ]
         },
         "sameAs": [
-          "https://instagram.com/uicode.dev",
-          "https://linkedin.com/in/lucasanttos-dev/"
+          "https://www.instagram.com/uicode.dev",
+          "https://www.linkedin.com/in/lucasanttos-dev/"
         ]
       }
     </script>
 
-    <!-- ESTILO CRÍTICO (Evita tela branca) -->
+    <!-- 
+      9. MEU ESTILO CRÍTICO E LOADING STATE
+      Previne a tela de piscar branco e cria um anel de carregamento elegante
+      para os milissegundos em que o React ainda está sendo montado.
+    -->
     <style>
+      :root {
+        color-scheme: dark;
+      }
       body {
-        background-color: #05050A;
+        background-color: #030303;
+        color: #f1f5f9;
         margin: 0;
         padding: 0;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+      }
+      
+      /* UX Sênior: Um pequeno loading enquanto o JS processa o site */
+      #root:empty {
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        background-color: #030303;
+      }
+      #root:empty::after {
+        content: "";
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(6, 182, 212, 0.1);
+        border-top-color: #06b6d4; /* Cor Ciano da marca */
+        border-radius: 50%;
+        animation: uicode-spin 1s linear infinite;
+      }
+      @keyframes uicode-spin {
+        to { transform: rotate(360deg); }
       }
     </style>
   </head>
   <body>
+    <!-- Se por acaso o usuário tiver o Javascript desligado no navegador, eu aviso ele gentilmente -->
+    <noscript>
+      <div style="padding: 20px; text-align: center; background: #111; color: #fff; font-family: sans-serif;">
+        Para aproveitar a experiência completa da UiCode, por favor, ative o JavaScript no seu navegador.
+      </div>
+    </noscript>
+    
     <div id="root"></div>
+    
+    <!-- O script do meu app React entra aqui por último -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

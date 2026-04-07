@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { 
   motion, 
@@ -9,18 +10,18 @@ import {
 } from 'framer-motion';
 
 import { 
-  Code, Layout, Smartphone, Server, Globe, Mail, 
-  Github, Linkedin, Instagram, ExternalLink, 
+  Code, Layout, Smartphone, Server, Globe, 
+  Github, Linkedin, Instagram, ShoppingBag, 
   Menu, X, Send, Zap, ArrowRight, CheckCircle2, 
   HelpCircle, ChevronDown, ChevronUp, Star, Rocket,
-  FileText, Shield, RefreshCw, CreditCard
+  FileText, Shield, RefreshCw, CreditCard, Sparkles, BarChart
 } from 'lucide-react';
 
 // ==================================================================================
-// --- COMPONENTES DE UI AVANÇADOS (HIGH-END) ---
+// --- MEUS COMPONENTES VISUAIS (Não preciso mexer muito aqui) ---
 // ==================================================================================
 
-// 1. Efeito de Spotlight (Luz segue o mouse nos cards)
+// 1. Meu Card com efeito de luz que segue o mouse
 const SpotlightCard = ({ children, className = "", spotlightColor = "rgba(6, 182, 212, 0.15)" }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -33,11 +34,11 @@ const SpotlightCard = ({ children, className = "", spotlightColor = "rgba(6, 182
 
   return (
     <div
-      className={`group relative border border-white/10 bg-gray-900/50 overflow-hidden ${className}`}
+      className={`group relative border border-white/5 bg-[#0A0A0A]/50 backdrop-blur-sm overflow-hidden rounded-[2rem] transition-colors hover:border-white/10 ${className}`}
       onMouseMove={handleMouseMove}
     >
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-500 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
             radial-gradient(
@@ -53,23 +54,22 @@ const SpotlightCard = ({ children, className = "", spotlightColor = "rgba(6, 182
   );
 };
 
-// 2. Botão "Shiny" (Brilho metálico passando)
+// 2. Meu Botão com brilho metálico
 const ShinyButton = ({ children, onClick, className = "", icon: Icon }) => {
   return (
     <motion.button
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.02, y: -2 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className={`relative overflow-hidden rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all hover:shadow-[0_0_40px_rgba(6,182,212,0.5)] ${className}`}
+      className={`relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 font-bold text-white shadow-[0_0_30px_rgba(6,182,212,0.2)] transition-all hover:shadow-[0_0_50px_rgba(6,182,212,0.5)] ${className}`}
     >
       <span className="relative z-10 flex items-center justify-center gap-2">
         {children} {Icon && <Icon size={18} />}
       </span>
-      {/* Efeito de brilho passando */}
       <motion.div
         initial={{ x: "-100%" }}
         whileHover={{ x: "100%" }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
         className="absolute inset-0 z-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"
       />
     </motion.button>
@@ -85,18 +85,45 @@ const GradientText = ({ text, className = "" }) => {
   );
 };
 
-// 4. Item de FAQ (Acordeão)
+// 4. Minha faixa de texto infinita (Letreiro)
+const InfiniteMarquee = () => {
+  // Aqui eu posso trocar as palavras que ficam passando na tela
+  const words = [
+    "LOJAS VIRTUAIS", "APLICATIVOS MOBILE", "LANDING PAGES", "E-COMMERCE", 
+    "IDENTIDADE DIGITAL", "SISTEMAS WEB", "UX/UI DESIGN", "OTIMIZAÇÃO SEO"
+  ];
+  
+  return (
+    <div className="w-full bg-gradient-to-r from-cyan-900/20 via-purple-900/20 to-cyan-900/20 border-y border-white/5 py-4 overflow-hidden flex whitespace-nowrap relative z-10 backdrop-blur-md">
+      <motion.div 
+        className="flex gap-12 items-center"
+        animate={{ x: [0, -1035] }} 
+        transition={{ duration: 20, ease: "linear", repeat: Infinity }}
+      >
+        {[...words, ...words, ...words].map((word, i) => (
+          <div key={i} className="flex items-center gap-12">
+            <span className="text-sm font-bold text-slate-400 tracking-[0.2em]">{word}</span>
+            <Sparkles size={14} className="text-cyan-500/50" />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
+// 5. Meu item de Perguntas Frequentes (Acordeão)
 const FAQItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <div className="border-b border-white/10 last:border-0">
+    <div className="border-b border-white/5 last:border-0">
       <button 
         onClick={() => setIsOpen(!isOpen)} 
-        className="w-full py-4 flex justify-between items-center text-left hover:text-cyan-400 transition-colors"
+        className="w-full py-5 flex justify-between items-center text-left hover:text-cyan-400 transition-colors"
       >
         <span className="font-medium text-lg text-slate-200">{question}</span>
-        {isOpen ? <ChevronUp size={20} className="text-cyan-400" /> : <ChevronDown size={20} className="text-slate-500" />}
+        <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
+          <ChevronDown size={20} className={isOpen ? "text-cyan-400" : "text-slate-500"} />
+        </motion.div>
       </button>
       <AnimatePresence>
         {isOpen && (
@@ -106,7 +133,7 @@ const FAQItem = ({ question, answer }) => {
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <p className="pb-4 text-slate-400 text-sm leading-relaxed">
+            <p className="pb-5 text-slate-400 text-sm leading-relaxed pr-8">
               {answer}
             </p>
           </motion.div>
@@ -121,7 +148,7 @@ const StatusIcon = ({ status }) => (
   status ? <CheckCircle2 size={18} className="text-green-400 mx-auto" /> : <X size={18} className="text-slate-600 mx-auto" />
 );
 
-// 5. Modal de Políticas 
+// 6. Minha Janela (Modal) de Políticas de Privacidade e Termos
 const PolicyModal = ({ isOpen, onClose, title, content }) => {
   if (!isOpen) return null;
   return (
@@ -154,72 +181,75 @@ const PolicyModal = ({ isOpen, onClose, title, content }) => {
 };
 
 // ==================================================================================
-// --- ÁREA DE DADOS ---
+// --- MEUS DADOS (AQUI EU EDITO OS TEXTOS DO SITE) ---
 // ==================================================================================
 
+// Aqui eu listo os serviços que ofereço
 const services = [
   {
-    title: "UI/UX & Frontend",
-    description: "Interfaces imersivas que contam histórias. Foco obsessivo em micro-interações e performance.",
-    icon: <Layout className="w-6 h-6 text-cyan-400" />
+    title: "E-commerce & Lojas Virtuais",
+    description: "Crio máquinas de vendas 24/7. Lojas virtuais rápidas, seguras e com checkout otimizado para não perder nenhuma venda.",
+    icon: <ShoppingBag className="w-7 h-7 text-cyan-400" />
   },
   {
-    title: "Sistemas Fullstack",
-    description: "Arquiteturas escaláveis com Node.js e React. Segurança e robustez para grandes volumes.",
-    icon: <Server className="w-6 h-6 text-purple-400" />
+    title: "Sites & Landing Pages",
+    description: "Sua identidade digital impecável. Páginas projetadas com gatilhos mentais e SEO para transformar visitantes em clientes reais.",
+    icon: <Layout className="w-7 h-7 text-purple-400" />
   },
   {
-    title: "Mobile Nativo",
-    description: "Apps iOS e Android com performance nativa e animações fluidas a 60fps.",
-    icon: <Smartphone className="w-6 h-6 text-pink-400" />
+    title: "Aplicativos Mobile (iOS/Android)",
+    description: "Coloco seu negócio no bolso do seu cliente. Desenvolvo apps nativos e responsivos com experiências de usuário inesquecíveis.",
+    icon: <Smartphone className="w-7 h-7 text-pink-400" />
   },
   {
-    title: "Consultoria Tech",
-    description: "Consultoria estratégica para transformar ideias complexas em produtos digitais viáveis.",
-    icon: <Code className="w-6 h-6 text-emerald-400" />
+    title: "Sistemas & Dashboards",
+    description: "Automatizo processos internos com sistemas web sob medida. Controle total do seu negócio com dados em tempo real.",
+    icon: <BarChart className="w-7 h-7 text-emerald-400" />
   }
 ];
 
+// Aqui eu coloco os meus projetos de portfólio (Cases de sucesso)
 const projects = [
   {
     id: 1,
     title: "Pet Green Veterinária",
-    category: "Landing Page",
-    description: "Página moderna focada em conversão para clínica veterinária. Navegação fluida, mobile-first e otimizada para agendamentos rápidos via WhatsApp.",
-    tech: ["React", "Framer Motion", "UX Design"],
-    color: "from-green-600 to-emerald-900",
-    link: "https://pet-green.netlify.app/",
-    image: "/petgreen.png" 
+    category: "Landing Page de Conversão",
+    description: "Presença digital estratégica para clínica veterinária. Foco total em agendamentos mobile e UX simplificada para os donos de pets.",
+    tech: ["React", "UI/UX", "WhatsApp API"],
+    color: "from-emerald-600 to-green-950",
+    link: "#",
+    image: "/pet-green-preview.jpg" // Aqui eu coloco o nome da imagem salva na pasta public
   },
   {
     id: 2,
     title: "Dr. Pedro Elino",
-    category: "Saúde & Odontologia",
-    description: "Landing Page premium de alta performance para cirurgião-dentista. Foco em SEO local, autoridade profissional e captação inteligente de pacientes.",
-    tech: ["Next.js", "SEO", "TypeScript"],
+    category: "Site Institucional VIP",
+    description: "Identidade digital premium para cirurgião-dentista. O design 'Dark & Clean' transmite alta autoridade, suportado por otimização pesada para o Google (SEO).",
+    tech: ["Next.js", "SEO Local", "Performance"],
     color: "from-blue-600 to-slate-900",
-    link: "https://dr-pedro-elino.netlify.app/",
-    image: "/drpedro.png" 
+    link: "#",
+    image: "/dr-pedro-preview.jpg" 
   },
   {
     id: 3,
-    title: "Tatuagem La Famille",
-    category: "SPA & Automação",
-    description: "Conceito Dark & Gold de alta performance. Resolve gargalos de atendimento com triagem automática e geração de links inteligentes para WhatsApp.",
-    tech: ["React", "SPA", "WhatsApp API"],
-    color: "from-yellow-600 to-amber-900", 
-    link: "https://la-famille-tattoo.netlify.app/",
-    image: "/tattoo.png" 
+    title: "La Famille Tattoo",
+    category: "Plataforma de Agendamento",
+    description: "Muito além de um site bonito. Uma aplicação que faz a triagem de clientes curiosos e envia apenas leads qualificados direto para o WhatsApp do estúdio.",
+    tech: ["React SPA", "Automação", "Conversion Rate"],
+    color: "from-yellow-600 to-amber-950", 
+    link: "https://fernandeswebsite.netlify.app/",
+    image: "/lafamille-preview.jpg" 
   }
 ];
 
+// Aqui eu listo as minhas habilidades e tecnologias
 const skills = [
-  "React.js", "Next.js", "TypeScript", "Node.js", 
-  "Tailwind", "Framer Motion", "Docker", "AWS", 
-  "PostgreSQL", "React Native", "Figma", "Git"
+  "Criação de Lojas Virtuais", "Aplicativos Nativos", "Landing Pages", "Otimização SEO", 
+  "React.js", "Node.js", "Design UI/UX", "Identidade Visual", 
+  "Sistemas Web", "Bancos de Dados", "Integração de Pagamentos", "Alta Performance"
 ];
 
-// --- DADOS DA PÁGINA DE PREÇOS (COM STRIPE) ---
+// Aqui eu defino os meus planos de assinatura
 const pricingPlans = [
   {
     name: "Básico",
@@ -237,7 +267,7 @@ const pricingPlans = [
     highlight: false,
     color: "border-white/10 hover:border-white/20",
     buttonVariant: "bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white",
-    paymentLink: "https://buy.stripe.com/eVq3cnfJl1wVbqc9582oE05" 
+    paymentLink: "https://buy.stripe.com/eVq3cnfJl1wVbqc9582oE05" // Aqui eu colo meu link do Stripe
   },
   {
     name: "Premium",
@@ -300,177 +330,117 @@ const faqData = [
 ];
 
 // ==================================================================================
-// --- COMPONENTES AUXILIARES ---
+// --- COMPONENTE PRINCIPAL (ONDE O SITE REALMENTE É MONTADO) ---
 // ==================================================================================
 
-// ==================================================================================
-// --- COMPONENTE PRINCIPAL ---
-// ==================================================================================
 export default function App() {
+  // Meus estados (variáveis que controlam o que aparece na tela)
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activePolicy, setActivePolicy] = useState(null); // Controla qual janela de política está aberta
+  
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-  
-  // Estado para controlar qual modal de política está aberto
-  const [activePolicy, setActivePolicy] = useState(null);
 
+  // Detecto quando o usuário rola a página para mudar a cor do cabeçalho
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Minha função para rolar até a seção clicada no menu
   const scrollToSection = (id) => {
     setMobileMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // --- FUNÇÃO DE ASSINATURA INTELIGENTE (Stripe ou WhatsApp) ---
+  // Minha função para lidar com o clique no botão de assinar plano
   const handleSubscribe = (plan) => {
-    // 1. Tenta abrir o link do Stripe se existir
+    // Se eu tiver configurado um link do Stripe, ele abre direto
     if (plan.paymentLink && plan.paymentLink.startsWith('http')) {
       window.open(plan.paymentLink, '_blank');
       return;
     }
-
-    // 2. Fallback para WhatsApp se não tiver link do Stripe configurado
-    // ⚠️  MEU NÚMERO 
+    
+    // ⚠️ AQUI EU COLOCO O MEU NÚMERO DE WHATSAPP REAL (Apenas números, com código do país e DDD)
     const phoneNumber = "5511916474626"; 
-    
-    const message = encodeURIComponent(
-      `Olá UiCode! 👋\n\nTenho interesse em contratar o *Plano ${plan.name}* (${plan.price}).\n\nPoderia me explicar os próximos passos?`
-    );
-    
+    const message = encodeURIComponent(`Olá equipe UiCode! 👋\n\nEstou buscando elevar o nível digital do meu negócio e tenho interesse no *Plano ${plan.name}* (${plan.price}).\n\nPodemos conversar?`);
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
 
-  // Conteúdo das Políticas
+  // Meus textos para as Políticas do site (aparecem na janela modal)
   const policyContent = {
     terms: (
       <div className="space-y-4">
-        <p><strong>1. Aceitação dos termos</strong><br/>Ao acessar ou utilizar a plataforma UiCode.dev, o usuário concorda com estes Termos de Uso. Caso não concorde, não deve utilizar o serviço.</p>
-        
-        <p><strong>2. Descrição do serviço</strong><br/>O UiCode.dev oferece a criação, hospedagem e manutenção de páginas profissionais (landing pages), conforme o plano contratado. As funcionalidades variam de acordo com o plano escolhido pelo usuário.</p>
-        
-        <p><strong>3. Cadastro e responsabilidade do usuário</strong><br/>O usuário se compromete a:
-        <ul className="list-disc pl-5 mt-1 space-y-1">
-          <li>Fornecer informações verdadeiras no cadastro</li>
-          <li>Manter seus dados atualizados</li>
-          <li>Utilizar o serviço de forma legal</li>
-        </ul>
-        O usuário é responsável por todo o conteúdo inserido em sua página, incluindo textos, imagens e informações de contato.</p>
-        
-        <p><strong>4. Planos e pagamentos</strong><br/>O serviço é oferecido por assinatura mensal recorrente. A cobrança é feita automaticamente no método de pagamento cadastrado. Os valores e recursos de cada plano estão disponíveis na página de preços. O não pagamento poderá resultar na suspensão temporária do serviço até a regularização.</p>
-        
-        <p><strong>5. Cancelamento</strong><br/>O usuário pode cancelar a assinatura a qualquer momento, conforme descrito na Política de Cancelamento.</p>
-        
-        <p><strong>6. Suspensão e encerramento</strong><br/>O UiCode.dev pode suspender ou encerrar contas que:
-        <ul className="list-disc pl-5 mt-1 space-y-1">
-          <li>violem estes Termos</li>
-          <li>utilizem o serviço para fins ilegais</li>
-          <li>causem prejuízo técnico ou legal à plataforma</li>
-        </ul>
-        </p>
-        
-        <p><strong>7. Alterações nos termos</strong><br/>Estes Termos podem ser atualizados a qualquer momento. Recomenda-se que o usuário revise periodicamente.</p>
-        
-        <p><strong>8. Contato</strong><br/>Em caso de dúvidas, o usuário pode entrar em contato pelo e-mail: 📧 uicode.dev2026@gmail.com</p>
+        <p><strong>1. Aceitação dos termos</strong><br/>Ao acessar ou utilizar a plataforma UiCode.site, o usuário concorda com estes Termos de Uso. Caso não concorde, não deve utilizar o serviço.</p>
+        <p><strong>2. Descrição do serviço</strong><br/>Eu ofereço a criação, hospedagem e manutenção de páginas profissionais, conforme o plano contratado.</p>
+        <p><strong>3. Responsabilidade</strong><br/>O usuário é responsável por todo o conteúdo inserido em sua página, incluindo textos, imagens e informações de contato.</p>
       </div>
     ),
     privacy: (
       <div className="space-y-4">
-        <p><strong>1. Coleta de dados</strong><br/>Coletamos apenas os dados necessários para o funcionamento do serviço, como: Nome, E-mail, Informações do site e Dados de pagamento (processados por terceiros).</p>
-        
-        <p><strong>2. Uso das informações</strong><br/>Os dados coletados são utilizados para: Criar e manter a conta do usuário, Processar pagamentos, Oferecer suporte e Melhorar o serviço.</p>
-        
-        <p><strong>3. Pagamentos</strong><br/>Os pagamentos são processados por plataformas externas seguras (ex: Stripe, Mercado Pago). O UiCode.dev não armazena dados de cartão de crédito.</p>
-        
-        <p><strong>4. Compartilhamento de dados</strong><br/>Não vendemos, alugamos ou compartilhamos dados pessoais com terceiros, exceto quando necessário para: Processamento de pagamentos e Cumprimento de obrigações legais.</p>
-        
-        <p><strong>5. Segurança</strong><br/>Adotamos medidas técnicas para proteger os dados dos usuários, incluindo conexões seguras (HTTPS).</p>
-        
-        <p><strong>6. Direitos do usuário</strong><br/>O usuário pode solicitar: Acesso aos seus dados, Correção e Exclusão. Basta entrar em contato pelo e-mail informado.</p>
-        
-        <p><strong>7. Alterações nesta política</strong><br/>Esta Política de Privacidade pode ser atualizada periodicamente.</p>
+        <p><strong>1. Coleta de dados</strong><br/>Coletamos apenas os dados necessários para o funcionamento do serviço, como: Nome e E-mail.</p>
+        <p><strong>2. Pagamentos</strong><br/>Os pagamentos são processados por plataformas seguras (Stripe). Eu não armazeno dados de cartão de crédito.</p>
       </div>
     ),
     cancellation: (
       <div className="space-y-4">
-        <p><strong>1. Cancelamento da assinatura</strong><br/>O usuário pode cancelar sua assinatura a qualquer momento, diretamente pela plataforma ou entrando em contato com o suporte.</p>
-        
-        <p><strong>2. Efeitos do cancelamento</strong><br/>O acesso ao serviço permanece ativo até o final do período já pago. Após esse período, o site poderá ser suspenso.</p>
-        
-        <p><strong>3. Reembolsos</strong><br/>Não realizamos reembolso proporcional de valores já pagos, exceto quando exigido por lei.</p>
-        
-        <p><strong>4. Inadimplência</strong><br/>Em caso de falha no pagamento: O usuário será notificado e o serviço poderá ser suspenso até a regularização.</p>
-        
-        <p><strong>5. Exclusão de dados</strong><br/>Após o cancelamento, os dados poderão ser excluídos após um período razoável, salvo obrigações legais.</p>
+        <p><strong>1. Cancelamento da assinatura</strong><br/>Você pode cancelar sua assinatura a qualquer momento, diretamente pela plataforma ou entrando em contato comigo.</p>
+        <p><strong>2. Efeitos do cancelamento</strong><br/>O acesso ao serviço permanece ativo até o final do período já pago. Após isso, o site será suspenso.</p>
       </div>
     )
   };
 
   return (
-    <div className="relative min-h-screen bg-[#020204] text-slate-200 font-sans selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#030303] text-slate-200 font-sans selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
       
-      {/* --- BARRA DE PROGRESSO --- */}
-      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-purple-600 origin-left z-[60]" style={{ scaleX }} />
+      {/* Minha Barra de Progresso no topo da tela */}
+      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 origin-left z-[100]" style={{ scaleX }} />
 
-      {/* --- AMBIENTE VISUAL --- */}
+      {/* Meus Efeitos de Fundo Cinematográficos */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")` }}></div>
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-900/20 rounded-full blur-[120px] animate-pulse-slow"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyan-900/10 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)]"></div>
+        <div className="absolute inset-0 opacity-[0.04] mix-blend-screen" style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")` }}></div>
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-cyan-900/20 rounded-full blur-[150px] animate-pulse-slow"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-900/10 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_100%)]"></div>
       </div>
 
-      {/* --- HEADER --- */}
+      {/* Meu Cabeçalho (Header) */}
       <motion.header 
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4"
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-[#030303]/80 backdrop-blur-xl border-b border-white/5 py-4 shadow-2xl' : 'bg-transparent py-6'}`}
       >
-        <div className={`
-          relative flex items-center justify-between px-6 py-3 rounded-full transition-all duration-500
-          ${isScrolled 
-            ? 'bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 shadow-2xl w-full max-w-5xl' 
-            : 'bg-transparent border border-transparent w-full max-w-7xl'}
-        `}>
-          <div 
-            className="text-xl font-bold font-mono tracking-tighter flex items-center gap-2 cursor-pointer group" 
-            onClick={() => scrollToSection('home')}
-          >
-            <div className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
-            </div>
-            <span className="text-white group-hover:text-cyan-400 transition-colors">UiCode</span>
+        <div className="container mx-auto px-6 flex justify-between items-center">
+          <div className="text-2xl font-bold font-mono tracking-tighter flex items-center gap-2 cursor-pointer group" onClick={() => scrollToSection('home')}>
+            <Sparkles size={20} className="text-cyan-500 group-hover:animate-spin" />
+            <span className="text-white">UiCode</span><span className="text-cyan-500">.site</span>
           </div>
 
+          {/* Links do Menu Desktop */}
           <nav className="hidden md:flex items-center gap-8">
-            {['Serviços', 'Projetos', 'Planos', 'Contato'].map((item) => (
+            {['Especialidades', 'Cases', 'Soluções'].map((item) => (
               <button 
                 key={item}
-                onClick={() => scrollToSection(item === 'Planos' ? 'pricing' : item === 'Projetos' ? 'projects' : item === 'Serviços' ? 'services' : 'contact')}
+                onClick={() => scrollToSection(item === 'Soluções' ? 'pricing' : item === 'Cases' ? 'projects' : 'services')}
                 className="text-sm font-medium text-slate-400 hover:text-white transition-colors relative group"
               >
                 {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-500 transition-all group-hover:w-full"></span>
+                <span className="absolute -bottom-2 left-0 w-0 h-px bg-cyan-500 transition-all group-hover:w-full"></span>
               </button>
             ))}
           </nav>
 
           <div className="flex items-center gap-4">
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <button 
               onClick={() => scrollToSection('contact')}
-              className="hidden md:flex bg-white text-black px-5 py-2 rounded-full font-bold text-sm hover:bg-cyan-50 transition-colors shadow-lg shadow-cyan-500/20"
+              className="hidden md:flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full font-bold text-sm hover:bg-cyan-50 transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
             >
-              Fale Comigo
-            </motion.button>
-            
+              Começar Projeto <ArrowRight size={16} />
+            </button>
+            {/* Ícone do Menu Mobile */}
             <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(true)}>
               <Menu />
             </button>
@@ -478,27 +448,27 @@ export default function App() {
         </div>
       </motion.header>
 
-      {/* --- MENU MOBILE --- */}
+      {/* Meu Menu Mobile (Abre tela cheia) */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-[#020204]/95 backdrop-blur-xl flex flex-col justify-center items-center"
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            className="fixed inset-0 z-[100] bg-[#030303]/95 flex flex-col justify-center items-center"
           >
-            <button className="absolute top-8 right-8 text-white/50 hover:text-white" onClick={() => setMobileMenuOpen(false)}>
+            <button className="absolute top-8 right-6 text-white/50 hover:text-white" onClick={() => setMobileMenuOpen(false)}>
               <X size={32} />
             </button>
             <div className="flex flex-col gap-8 text-center">
-              {['Início', 'Serviços', 'Projetos', 'Planos', 'Contato'].map((item, i) => (
+              {['Início', 'Especialidades', 'Cases de Sucesso', 'Planos', 'Contato'].map((item, i) => (
                 <motion.button
                   key={item}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: i * 0.1 }}
-                  onClick={() => scrollToSection(item === 'Planos' ? 'pricing' : item === 'Projetos' ? 'projects' : item === 'Início' ? 'home' : item === 'Serviços' ? 'services' : 'contact')}
-                  className="text-3xl font-bold text-white hover:text-cyan-400 transition-colors"
+                  onClick={() => scrollToSection(item === 'Planos' ? 'pricing' : item === 'Cases de Sucesso' ? 'projects' : item === 'Início' ? 'home' : item === 'Especialidades' ? 'services' : 'contact')}
+                  className="text-4xl font-bold text-white hover:text-cyan-400 transition-colors tracking-tight"
                 >
                   {item}
                 </motion.button>
@@ -508,204 +478,191 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* --- HERO SECTION --- */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center px-6 pt-20">
-        <div className="container max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      {/* --- MINHA SEÇÃO PRINCIPAL (HERO) --- */}
+      <section id="home" className="relative pt-40 pb-20 md:pt-52 md:pb-32 px-6 overflow-hidden min-h-[90vh] flex items-center">
+        <div className="container max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
           
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="text-left z-10"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/30 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-6"
-            >
-              <Zap size={12} fill="currentColor" /> Disponível para Projetos
-            </motion.div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-8 backdrop-blur-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+              </span>
+              Agência Digital Premium
+            </div>
             
-            <h1 className="text-6xl md:text-8xl font-bold leading-[0.9] tracking-tighter mb-8">
-              Código <br />
-              <span className="text-slate-700">Design</span> <br />
-              <GradientText text="Surpreenda." />
+            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold leading-[1.05] tracking-tighter mb-6">
+              Transforme sua <br /> Visão em um <br />
+              <GradientText text="Império Digital." />
             </h1>
             
-            <p className="text-lg md:text-xl text-slate-400 max-w-lg leading-relaxed mb-10 border-l-2 border-white/10 pl-6">
-              Desenvolvedor Fullstack focado em criar experiências digitais que não são apenas funcionais, mas <strong className="text-white">memoráveis</strong>. Transformo complexidade em interfaces elegantes.
+            <p className="text-lg md:text-xl text-slate-400 max-w-lg leading-relaxed mb-10 font-light">
+              Especialistas na criação de <strong className="text-white">Lojas Virtuais, Sites Institucionais e Aplicativos</strong> de alta conversão. Nós não fazemos apenas sites, construímos o seu principal ativo de vendas.
             </p>
             
-            <div className="flex flex-wrap gap-4">
-              <ShinyButton onClick={() => scrollToSection('projects')} icon={ArrowRight}>
-                Ver Projetos
+            <div className="flex flex-wrap gap-4 items-center">
+              <ShinyButton onClick={() => scrollToSection('pricing')} icon={ArrowRight}>
+                Ver Nossas Soluções
               </ShinyButton>
               <button 
-                onClick={() => scrollToSection('contact')}
-                className="px-8 py-4 rounded-xl border border-white/10 hover:bg-white/5 transition-all text-slate-300 font-medium flex items-center gap-2"
+                onClick={() => scrollToSection('projects')}
+                className="px-8 py-4 rounded-2xl text-slate-300 font-bold hover:text-white transition-colors flex items-center gap-2 group"
               >
-                <Github size={18} /> Perfil GitHub
+                Explorar Cases <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
           </motion.div>
 
-          {/* Visual Abstrato Hero */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.5 }}
-            className="relative hidden lg:block"
-          >
-            <div className="relative w-full aspect-square max-w-lg mx-auto">
-              <motion.div 
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 rounded-full border border-dashed border-cyan-500/20"
-              />
-              <motion.div 
-                animate={{ rotate: -360 }}
-                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-12 rounded-full border border-dotted border-purple-500/20"
-              />
-              <motion.div
-                animate={{ y: [-10, 10, -10] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <div className="relative w-64 h-80 bg-gradient-to-b from-slate-800 to-black rounded-2xl border border-white/10 shadow-2xl flex flex-col items-center justify-center p-6 backdrop-blur-md">
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 mb-6 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                    <Code size={40} className="text-white" />
-                  </div>
-                  <div className="h-2 w-32 bg-white/10 rounded-full mb-3"></div>
-                  <div className="h-2 w-24 bg-white/10 rounded-full mb-8"></div>
-                  <div className="w-full h-px bg-white/10 mb-6"></div>
-                  <div className="flex gap-4 opacity-50">
-                    <div className="w-8 h-8 rounded-full bg-white/10"></div>
-                    <div className="w-8 h-8 rounded-full bg-white/10"></div>
-                    <div className="w-8 h-8 rounded-full bg-white/10"></div>
+          {/* Gráficos Abstratos do Hero (Estilo Corporativo) */}
+          <div className="relative hidden lg:block h-[600px] perspective-1000">
+            <motion.div
+              animate={{ y: [-15, 15, -15], rotateY: [0, 5, 0], rotateX: [0, -5, 0] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-10 right-10 w-72 h-80 bg-gradient-to-br from-gray-900 to-black rounded-3xl border border-white/10 shadow-2xl p-6 backdrop-blur-xl z-20"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center">
+                  <ShoppingBag className="text-cyan-400" />
+                </div>
+                <div className="text-xs font-mono text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-full">+245% Vendas</div>
+              </div>
+              <div className="space-y-4">
+                <div className="h-4 w-3/4 bg-white/5 rounded-md"></div>
+                <div className="h-4 w-1/2 bg-white/5 rounded-md"></div>
+                <div className="w-full h-32 mt-4 bg-gradient-to-t from-cyan-500/20 to-transparent rounded-xl border border-cyan-500/20 flex items-end p-4">
+                  <div className="w-full flex items-end gap-2 h-full">
+                    {[40, 70, 45, 90, 65, 100].map((h, i) => (
+                      <div key={i} className="flex-1 bg-cyan-400/50 rounded-t-sm" style={{ height: `${h}%` }}></div>
+                    ))}
                   </div>
                 </div>
-              </motion.div>
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [15, -15, 15], rotateZ: [-2, 2, -2] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute bottom-20 left-10 w-64 h-48 bg-[#0a0a0a] rounded-3xl border border-white/10 shadow-2xl p-6 backdrop-blur-xl z-10"
+            >
+              <div className="flex gap-3 items-center mb-6">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="space-y-3">
+                <div className="h-3 w-full bg-white/5 rounded-md"></div>
+                <div className="h-3 w-5/6 bg-white/5 rounded-md"></div>
+                <div className="h-10 w-full mt-4 bg-purple-500/20 border border-purple-500/30 rounded-xl flex items-center justify-center">
+                  <span className="text-xs font-bold text-purple-300">Identidade Visual App</span>
+                </div>
+              </div>
+            </motion.div>
+
+            <svg className="absolute inset-0 w-full h-full z-0 opacity-20" preserveAspectRatio="none">
+               <path d="M 100 400 Q 200 200 400 100" fill="transparent" stroke="cyan" strokeWidth="2" strokeDasharray="5,5" />
+               <circle cx="400" cy="100" r="4" fill="cyan" />
+               <circle cx="100" cy="400" r="4" fill="cyan" />
+            </svg>
+          </div>
         </div>
-        
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50"
-        >
-          <span className="text-[10px] uppercase tracking-[0.2em]">Role</span>
-          <div className="w-px h-12 bg-gradient-to-b from-white to-transparent"></div>
-        </motion.div>
       </section>
 
-      {/* --- SERVICES --- */}
-      <section id="services" className="py-32 relative">
-        <div className="container px-6 mx-auto">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-20"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Minha Expertise</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full"></div>
-          </motion.div>
+      {/* Minha faixa infinita de palavras-chave */}
+      <InfiniteMarquee />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* --- MINHA SEÇÃO DE SERVIÇOS (O QUE CONSTRUÍMOS) --- */}
+      <section id="services" className="py-32 relative">
+        <div className="container px-6 mx-auto max-w-7xl">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">O que eu construo</h2>
+            <p className="text-slate-400 text-lg">De landing pages enxutas a ecossistemas complexos de e-commerce. Domino a tecnologia para que você domine o seu mercado.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
             {services.map((service, i) => (
-              <SpotlightCard key={i} className="p-8 rounded-3xl group">
-                <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 group-hover:bg-cyan-500/20 group-hover:border-cyan-500/50">
+              <SpotlightCard key={i} className="p-10 group flex gap-6 items-start" spotlightColor="rgba(255,255,255,0.05)">
+                <div className="w-16 h-16 shrink-0 rounded-2xl bg-[#111] border border-white/5 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/5 transition-all duration-300 shadow-xl">
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-white">{service.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{service.description}</p>
+                <div>
+                  <h3 className="text-2xl font-bold mb-3 text-white tracking-tight">{service.title}</h3>
+                  <p className="text-slate-400 leading-relaxed font-light">{service.description}</p>
+                </div>
               </SpotlightCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* --- PROJECTS --- */}
-      <section id="projects" className="py-32 bg-black/20">
-        <div className="container px-6 mx-auto">
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6"
-          >
+      {/* --- MINHA SEÇÃO DE PROJETOS --- */}
+      <section id="projects" className="py-32 bg-[#050505] relative border-y border-white/5">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/10 via-[#050505] to-[#050505] pointer-events-none"></div>
+        
+        <div className="container px-6 mx-auto max-w-7xl relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6 border-b border-white/10 pb-10">
             <div>
-              <h2 className="text-4xl md:text-6xl font-bold mb-4">Trabalhos <br /><span className="text-slate-600">Selecionados</span></h2>
+              <span className="text-cyan-400 font-bold tracking-widest uppercase text-sm mb-2 block">Meu Portfólio</span>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tight">Cases de <span className="text-slate-600">Sucesso</span></h2>
             </div>
-            <a href="#" className="flex items-center gap-2 text-cyan-400 hover:text-white transition-colors group">
-              Ver Repositório Completo <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-          </motion.div>
+            <p className="text-slate-400 max-w-sm text-right hidden md:block">
+              Marcas que confiaram na minha arquitetura digital para escalar seus resultados.
+            </p>
+          </div>
 
-          <div className="flex flex-col gap-24">
+          <div className="flex flex-col gap-32">
             {projects.map((project, index) => (
               <motion.div 
                 key={project.id}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.8 }}
-                className={`flex flex-col lg:flex-row gap-12 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className={`flex flex-col lg:flex-row gap-16 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
               >
-                {/* Visual */}
-                <div className="w-full lg:w-3/5 group relative">
-                  <div className={`absolute -inset-4 bg-gradient-to-r ${project.color} opacity-20 blur-2xl group-hover:opacity-30 transition-opacity duration-500 rounded-[3rem]`}></div>
-                  <div className="relative aspect-video bg-[#0a0a0a] rounded-3xl border border-white/10 overflow-hidden shadow-2xl group-hover:-translate-y-2 transition-transform duration-500">
-                    {project.image ? (
-                      <div className="relative w-full h-full">
-                        <img 
-                          src={project.image} 
-                          alt={project.title} 
-                          className="w-full h-full object-cover object-top opacity-90 group-hover:scale-105 transition-all duration-700" 
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+                <div className="w-full lg:w-[55%] group relative">
+                  <div className={`absolute -inset-1 bg-gradient-to-r ${project.color} opacity-20 blur-xl transition-opacity duration-500 rounded-[2rem]`}></div>
+                  <div className="relative aspect-[4/3] bg-[#0a0a0a] rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+                    <img 
+                      src={project.image} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover object-top opacity-90 transition-transform duration-[2s] ease-out group-hover:scale-105" 
+                      onError={(e) => {
+                        e.target.src = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"; 
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80"></div>
+                    
+                    <div className="absolute bottom-6 left-6">
+                      <div className="flex gap-2">
+                        {project.tech.slice(0, 2).map(t => (
+                          <span key={t} className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-xs font-medium text-white">
+                            {t}
+                          </span>
+                        ))}
                       </div>
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent p-8 flex flex-col">
-                        <div className="flex gap-2 mb-4">
-                          <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
-                          <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-                          <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
-                        </div>
-                        <div className="flex-1 bg-white/5 rounded-xl border border-white/5 w-full flex items-center justify-center flex-col gap-4">
-                          <span className="font-mono text-sm text-white/30">Sem_Imagem.jpg</span>
-                          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 border border-white/10 text-xs font-mono text-cyan-400">
-                            <CheckCircle2 size={12} /> UX Mobile-First
-                          </div>
-                        </div>
-                      </div>
-                    )}
+                    </div>
                   </div>
                 </div>
 
-                {/* Info */}
-                <div className="w-full lg:w-2/5 space-y-6">
-                  <span className="text-cyan-400 font-mono text-sm tracking-widest uppercase">0{project.id} — {project.category}</span>
-                  <h3 className="text-4xl font-bold">{project.title}</h3>
-                  <p className="text-slate-400 text-lg leading-relaxed">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {project.tech.map(t => (
-                      <span key={t} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-slate-300">
-                        {t}
-                      </span>
-                    ))}
+                <div className="w-full lg:w-[45%] space-y-8">
+                  <div>
+                    <span className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-4 block">Projeto 0{project.id}</span>
+                    <h3 className="text-4xl lg:text-5xl font-bold tracking-tight mb-6">{project.title}</h3>
+                    <p className="text-slate-400 text-lg leading-relaxed font-light">
+                      {project.description}
+                    </p>
                   </div>
-                  <div className="flex gap-4 pt-4">
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-cyan-50 transition-colors flex items-center gap-2">
-                      <Globe size={16} /> Demo Online
+                  
+                  <div className="h-px w-full bg-white/10"></div>
+                  
+                  <div className="flex gap-4">
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-xl bg-white text-black font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2">
+                      Acessar Site <ArrowRight size={16} />
                     </a>
-                    <button className="px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 transition-colors font-bold text-sm flex items-center gap-2">
-                      <Github size={16} /> Código
-                    </button>
                   </div>
                 </div>
               </motion.div>
@@ -714,83 +671,73 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- SKILLS --- */}
+      {/* --- MINHAS HABILIDADES E TECNOLOGIAS --- */}
       <section id="skills" className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#020204] via-cyan-900/10 to-[#020204]"></div>
-        <div className="container px-6 mx-auto relative z-10">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-6">Stack Tecnológico</h2>
-            <p className="text-slate-400">Ferramentas modernas para resolver problemas complexos com elegância.</p>
-          </div>
+        <div className="container px-6 mx-auto max-w-5xl relative z-10 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Minha Tecnologia de Ponta</h2>
+          <p className="text-slate-400 mb-16 max-w-2xl mx-auto">Utilizo o que há de mais avançado no Vale do Silício para garantir que seu site ou app seja ultra rápido, seguro e escalável no Google.</p>
 
           <div className="flex flex-wrap justify-center gap-4">
             {skills.map((skill, i) => (
               <motion.div
                 key={skill}
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                whileHover={{ y: -5, borderColor: 'rgba(6,182,212,0.5)' }}
-                className="px-6 py-3 bg-[#0a0a0a] border border-white/10 rounded-2xl flex items-center gap-3 shadow-lg cursor-default transition-colors"
+                transition={{ delay: i * 0.03 }}
+                whileHover={{ y: -5, backgroundColor: 'rgba(255,255,255,0.05)' }}
+                className="px-6 py-4 bg-[#0a0a0a]/50 border border-white/5 rounded-2xl flex items-center gap-3 backdrop-blur-sm cursor-default transition-all"
               >
-                <div className={`w-2 h-2 rounded-full ${skill.includes('React') || skill.includes('Next') ? 'bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]' : 'bg-slate-600'}`}></div>
-                <span className="font-medium text-slate-200">{skill}</span>
+                <div className="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]"></div>
+                <span className="font-medium text-slate-300">{skill}</span>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* --- NOVA SEÇÃO DE PREÇOS (PRICING) --- */}
-      <section id="pricing" className="py-32 relative">
+      {/* --- MINHA SEÇÃO DE PLANOS E PREÇOS --- */}
+      <section id="pricing" className="py-32 relative bg-[#020204]">
         <div className="container px-6 mx-auto max-w-6xl">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Planos e Assinaturas</h2>
+          <div className="text-center mb-20">
+            <span className="text-cyan-400 font-bold tracking-widest uppercase text-sm mb-4 block">Planos Transparentes</span>
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Invista no seu <br/>Crescimento Digital</h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Tenha um site profissional que ajuda seus clientes a falarem com você. <br />
-              <span className="text-cyan-400 font-bold">💡 Com apenas 1 cliente novo por mês, o site já se paga.</span>
+              Um site lento custa clientes. Minhas soluções são otimizadas para que o seu investimento se pague rapidamente com <strong className="text-white">novas vendas e contatos.</strong>
             </p>
-          </motion.div>
+          </div>
 
-          {/* Cards de Planos */}
-          <div className="grid md:grid-cols-3 gap-8 mb-24 relative z-10">
+          <div className="grid lg:grid-cols-3 gap-8 items-center relative z-10 mb-20">
             {pricingPlans.map((plan, i) => (
-              <div key={i} className="relative group">
-                {/* Efeito Glow para o card em destaque */}
+              <div key={i} className="relative group h-full">
                 {plan.highlight && (
-                  <div className="absolute -inset-1 bg-gradient-to-b from-purple-600/30 to-transparent blur-xl rounded-[2rem] opacity-75"></div>
+                  <div className="absolute -inset-1 bg-gradient-to-b from-cyan-500/20 to-blue-600/20 blur-2xl rounded-[2.5rem] opacity-100"></div>
                 )}
                 
                 <SpotlightCard 
-                  className={`h-full flex flex-col p-8 rounded-[2rem] bg-[#0A0A10] transition-all duration-300 ${plan.color}`}
-                  spotlightColor={plan.highlight ? "rgba(168, 85, 247, 0.2)" : "rgba(6, 182, 212, 0.1)"}
+                  className={`h-full flex flex-col p-10 rounded-[2.5rem] bg-[#0A0A0A] transition-all duration-500 ${plan.color}`}
+                  spotlightColor={plan.highlight ? "rgba(6, 182, 212, 0.15)" : "rgba(255, 255, 255, 0.05)"}
                 >
-                  {/* Badge REPOSICIONADO: Canto Superior Direito (Estilo Fita/Canto) */}
                   {plan.highlight && (
-                    <div className="absolute top-0 right-0 overflow-hidden rounded-tr-[2rem] rounded-bl-2xl">
-                      <div className="bg-gradient-to-bl from-purple-600 to-pink-600 text-white text-[10px] font-bold px-6 py-2 shadow-lg tracking-wider flex items-center gap-1">
-                        <Star size={10} className="fill-white" /> {plan.badge || "RECOMENDADO"}
+                    <div className="absolute top-0 right-0 overflow-hidden rounded-tr-[2.5rem] rounded-bl-3xl">
+                      <div className="bg-gradient-to-bl from-cyan-500 to-blue-600 text-white text-[10px] font-bold px-6 py-2 shadow-lg tracking-widest flex items-center gap-1 uppercase">
+                        <Star size={10} className="fill-white" /> {plan.badge}
                       </div>
                     </div>
                   )}
 
-                  <h3 className="text-xl font-bold text-white mb-2 mt-2">{plan.name}</h3>
-                  <div className="flex items-baseline gap-1 mb-4">
-                    <span className="text-4xl font-bold text-white tracking-tight">{plan.price}</span>
-                    <span className="text-slate-500 text-sm">{plan.period}</span>
+                  <h3 className="text-2xl font-bold text-white mb-2 mt-2">{plan.name}</h3>
+                  <p className="text-slate-400 text-sm mb-6 h-10">{plan.description}</p>
+                  
+                  <div className="flex items-baseline gap-1 mb-8 pb-8 border-b border-white/5">
+                    <span className="text-5xl font-bold text-white tracking-tighter">{plan.price}</span>
+                    <span className="text-slate-500 text-sm font-medium">{plan.period}</span>
                   </div>
-                  <p className="text-slate-400 text-sm mb-8 h-10">{plan.description}</p>
 
-                  <ul className="space-y-4 mb-8 flex-1">
+                  <ul className="space-y-4 mb-10 flex-1">
                     {plan.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-sm text-slate-300">
-                        <CheckCircle2 size={16} className={`shrink-0 mt-0.5 ${plan.highlight ? 'text-purple-400' : 'text-cyan-500'}`} />
+                      <li key={idx} className="flex items-start gap-3 text-sm text-slate-300 leading-snug">
+                        <CheckCircle2 size={18} className={`shrink-0 ${plan.highlight ? 'text-cyan-400' : 'text-slate-600'}`} />
                         {feat}
                       </li>
                     ))}
@@ -798,47 +745,22 @@ export default function App() {
 
                   <button 
                     onClick={() => handleSubscribe(plan)}
-                    className={`w-full py-4 rounded-xl font-bold text-sm transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2 ${plan.buttonVariant}`}
+                    className={`w-full py-4 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${plan.buttonVariant}`}
                   >
-                    {plan.paymentLink ? <CreditCard size={16} /> : null}
-                    Escolher {plan.name} {plan.highlight && <Rocket size={16} />}
+                    {plan.paymentLink ? <CreditCard size={18} /> : null}
+                    Assinar {plan.name} {plan.highlight && <Rocket size={16} />}
                   </button>
                 </SpotlightCard>
               </div>
             ))}
           </div>
 
-          {/* Tabela Comparativa */}
-          <div className="mb-24 overflow-x-auto">
-            <div className="min-w-[700px] bg-[#0A0A10]/50 border border-white/10 rounded-3xl p-8 backdrop-blur-sm">
-              <h3 className="text-2xl font-bold mb-8 text-center">Comparativo Detalhado</h3>
-              <div className="grid grid-cols-4 gap-4 mb-6 pb-4 border-b border-white/10 text-center font-bold text-slate-300">
-                <div className="text-left pl-4">Recurso</div>
-                <div className="text-slate-400">Básico</div>
-                <div className="text-purple-400">Premium ⭐</div>
-                <div className="text-blue-400">Pro</div>
-              </div>
-              
-              <div className="space-y-4">
-                {comparisonData.map((row, i) => (
-                  <div key={i} className="grid grid-cols-4 gap-4 items-center text-center py-3 hover:bg-white/5 rounded-lg transition-colors">
-                    <div className="text-left pl-4 font-medium text-slate-300 text-sm">{row.feature}</div>
-                    <div><StatusIcon status={row.basic} /></div>
-                    <div><StatusIcon status={row.premium} /></div>
-                    <div><StatusIcon status={row.pro} /></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* FAQ Section */}
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/5 border border-white/10 mb-4">
+          <div className="max-w-3xl mx-auto bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-[2.5rem]">
+            <div className="flex items-center gap-4 mb-10">
+              <div className="w-12 h-12 rounded-full bg-cyan-900/30 flex items-center justify-center border border-cyan-500/20">
                 <HelpCircle className="text-cyan-400" />
               </div>
-              <h3 className="text-3xl font-bold">Perguntas Frequentes</h3>
+              <h3 className="text-3xl font-bold tracking-tight">Dúvidas Frequentes</h3>
             </div>
             
             <div className="space-y-2">
@@ -847,125 +769,61 @@ export default function App() {
               ))}
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* --- CONTATO (FORMULÁRIO PREMIUM) --- */}
-      <section id="contact" className="py-32 relative">
-        <div className="container px-6 mx-auto max-w-4xl relative z-10">
-          <SpotlightCard className="rounded-[3rem] p-10 md:p-16 bg-[#05050A]">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">Vamos Construir o Futuro?</h2>
-              <p className="text-slate-400 text-lg">
-                Seja para um projeto, uma vaga ou apenas um café. <br className="hidden md:block" />
-                Estou pronto para o próximo desafio.
-              </p>
-            </div>
-
-            <form 
-              action="https://formsubmit.co/uicode.dev2026@gmail.com" 
-              method="POST"
-              className="space-y-6 max-w-2xl mx-auto"
-            >
-              <input type="hidden" name="_subject" value="Novo contato do Portfólio!" />
-              <input type="hidden" name="_next" value="http://localhost:5173" /> 
-              <input type="hidden" name="_captcha" value="false" />
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="group">
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 ml-1 group-focus-within:text-cyan-400 transition-colors">Seu Nome</label>
-                  <input 
-                    type="text" 
-                    name="name" 
-                    required 
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-cyan-500 focus:bg-white/10 transition-all"
-                    placeholder="João Silva"
-                  />
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 ml-1 group-focus-within:text-cyan-400 transition-colors">Seu Email</label>
-                  <input 
-                    type="email" 
-                    name="email" 
-                    required 
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-cyan-500 focus:bg-white/10 transition-all"
-                    placeholder="joao@exemplo.com"
-                  />
-                </div>
-              </div>
-
-              <div className="group">
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 ml-1 group-focus-within:text-cyan-400 transition-colors">WhatsApp</label>
-                <input 
-                  type="tel" 
-                  name="phone" 
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-cyan-500 focus:bg-white/10 transition-all"
-                  placeholder="(00) 00000-0000"
-                />
-              </div>
-
-              <div className="group">
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 ml-1 group-focus-within:text-cyan-400 transition-colors">Mensagem</label>
-                <textarea 
-                  rows={4} 
-                  name="message" 
-                  required 
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-cyan-500 focus:bg-white/10 transition-all resize-none"
-                  placeholder="Conte-me sobre seu projeto..."
-                ></textarea>
-              </div>
-
-              <div className="pt-4">
-                <ShinyButton className="w-full flex justify-center py-5 rounded-2xl" icon={Send}>
-                  Enviar Mensagem
-                </ShinyButton>
-              </div>
-            </form>
-
-            <div className="mt-16 flex justify-center gap-8 border-t border-white/5 pt-8">
-              <a href="https://instagram.com/uicode.dev" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-110 transition-all"><Instagram /></a>
-              <a href="#" className="text-slate-400 hover:text-white hover:scale-110 transition-all"><Github /></a>
-              <a href="#" className="text-slate-400 hover:text-white hover:scale-110 transition-all"><Linkedin /></a>
-            </div>
-          </SpotlightCard>
-        </div>
-      </section>
-
-      {/* --- FOOTER --- */}
-      <footer className="py-12 border-t border-white/5 bg-[#020204]">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm mb-8">
-            <p>&copy; {new Date().getFullYear()} UiCode.dev</p>
-            <p className="flex items-center gap-2">
-              Desenvolvido por UiCode.dev
-            </p>
-          </div>
+      {/* --- MINHA SEÇÃO DE CONTATO FINAL (CTA) --- */}
+      <section id="contact" className="py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020204] via-blue-900/10 to-[#020204]"></div>
+        <div className="container px-6 mx-auto max-w-4xl relative z-10 text-center">
+          <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter">
+            Pronto para dar <br />o próximo passo?
+          </h2>
+          <p className="text-xl text-slate-400 mb-12">
+            Chega de perder vendas por ter uma presença digital fraca. <br/> Vamos construir a vitrine definitiva para o seu negócio.
+          </p>
           
-          <div className="flex flex-wrap justify-center md:justify-end gap-6 text-xs text-slate-600">
-            <button 
-              onClick={() => setActivePolicy('terms')} 
-              className="hover:text-cyan-400 transition-colors flex items-center gap-1"
-            >
-              <FileText size={14} /> Termos de Uso
-            </button>
-            <button 
-              onClick={() => setActivePolicy('privacy')} 
-              className="hover:text-cyan-400 transition-colors flex items-center gap-1"
-            >
-              <Shield size={14} /> Política de Privacidade
-            </button>
-            <button 
-              onClick={() => setActivePolicy('cancellation')} 
-              className="hover:text-cyan-400 transition-colors flex items-center gap-1"
-            >
-              <RefreshCw size={14} /> Política de Cancelamento
-            </button>
+          <ShinyButton onClick={() => window.open('https://wa.me/5511916474626', '_blank')} className="mx-auto text-lg px-12 py-5 rounded-[2rem]">
+            Falar comigo no WhatsApp
+          </ShinyButton>
+        </div>
+      </section>
+
+      {/* --- MEU RODAPÉ --- */}
+      <footer className="py-12 border-t border-white/5 bg-[#030303] relative z-10">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
+            <div>
+              <div className="text-2xl font-bold font-mono tracking-tighter flex items-center gap-2 mb-4">
+                <Sparkles size={20} className="text-cyan-500" />
+                <span className="text-white">UiCode</span><span className="text-cyan-500">.site</span>
+              </div>
+              <p className="text-slate-500 max-w-sm">Elevando padrões estéticos e técnicos na construção de marcas digitais de alto impacto.</p>
+            </div>
+            
+            <div className="flex md:justify-end gap-4">
+              {/* Aqui eu posso colocar os meus links das redes sociais */}
+              <a href="#" className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:scale-110"><Instagram size={20} /></a>
+              <a href="#" className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:scale-110"><Linkedin size={20} /></a>
+              <a href="#" className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-cyan-500 transition-all hover:scale-110"><Github size={20} /></a>
+            </div>
+          </div>
+
+          <div className="h-px w-full bg-white/5 mb-8"></div>
+
+          <div className="flex flex-col md:flex-row justify-between items-center text-slate-600 text-xs font-medium gap-4">
+            <p>&copy; {new Date().getFullYear()} UiCode.site - Todos os direitos reservados.</p>
+            
+            <div className="flex gap-6">
+              <button onClick={() => setActivePolicy('terms')} className="hover:text-cyan-400 transition-colors flex items-center gap-1"><FileText size={14} /> Termos de Serviço</button>
+              <button onClick={() => setActivePolicy('privacy')} className="hover:text-cyan-400 transition-colors flex items-center gap-1"><Shield size={14} /> Privacidade</button>
+              <button onClick={() => setActivePolicy('cancellation')} className="hover:text-cyan-400 transition-colors flex items-center gap-1"><RefreshCw size={14} /> Cancelamento</button>
+            </div>
           </div>
         </div>
       </footer>
 
-      {/* Modal de Políticas */}
+      {/* Renderiza a minha janela modal de políticas */}
       <AnimatePresence>
         {activePolicy && (
           <PolicyModal 
@@ -976,6 +834,7 @@ export default function App() {
           />
         )}
       </AnimatePresence>
+
     </div>
   );
 }
