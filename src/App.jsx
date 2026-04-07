@@ -218,7 +218,7 @@ const projects = [
     tech: ["React", "UI/UX", "WhatsApp API"],
     color: "from-emerald-600 to-green-950",
     link: "#",
-    image: "/pet-green-preview.jpg" // Aqui eu coloco o nome da imagem salva na pasta public
+    image: "/petgreen.png" 
   },
   {
     id: 2,
@@ -228,7 +228,7 @@ const projects = [
     tech: ["Next.js", "SEO Local", "Performance"],
     color: "from-blue-600 to-slate-900",
     link: "#",
-    image: "/dr-pedro-preview.jpg" 
+    image: "/drpedro.png" 
   },
   {
     id: 3,
@@ -238,8 +238,18 @@ const projects = [
     tech: ["React SPA", "Automação", "Conversion Rate"],
     color: "from-yellow-600 to-amber-950", 
     link: "https://fernandeswebsite.netlify.app/",
-    image: "/lafamille-preview.jpg" 
-  }
+    image: "/tattoo.png" 
+  },
+  //{
+   // id: 4,
+   // title: "Maldini Advogados",
+    //category: "Landing Page",
+   // description: "XXXXXXXXXXXXXXXXXXX",
+   // tech: ["React SPA", "Automação", "Conversion Rate"],
+    //color: "from-yellow-600 to-amber-950", 
+   // link: "XXXXXXXXXX",
+    //image: "/XXXXXXXXXXXX.png" 
+  //}
 ];
 
 // Aqui eu listo as minhas habilidades e tecnologias
