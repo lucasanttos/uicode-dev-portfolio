@@ -2,33 +2,52 @@ import { notFound } from "next/navigation";
 import { blogPosts } from "@/lib/blog";
 import type { Metadata } from "next";
 
-interface Props {
-  params: {
+// tipagem correta para Next 15
+interface PageProps {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
+// metadata dinâmica SEO
 export async function generateMetadata({
   params,
-}: Props): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
+
+  // agora precisa await
+  const { slug } = await params;
+
   const post = blogPosts.find(
-    (p) => p.slug === params.slug
+    (p) => p.slug === slug
   );
 
-  if (!post) return {};
+  if (!post) {
+    return {};
+  }
 
   return {
     title: post.title,
     description: post.description,
     keywords: post.keywords,
+
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      locale: "pt_BR",
+    },
   };
 }
 
-export default function BlogPostPage({
+export default async function BlogPostPage({
   params,
-}: Props) {
+}: PageProps) {
+
+  // await obrigatório no Next 15
+  const { slug } = await params;
+
   const post = blogPosts.find(
-    (p) => p.slug === params.slug
+    (p) => p.slug === slug
   );
 
   if (!post) {
@@ -78,7 +97,7 @@ export default function BlogPostPage({
           {/* artigo */}
           <article className="prose prose-invert prose-lg max-w-none">
 
-            {/* texto */}
+            {/* conteúdo do post */}
             <div className="text-slate-300 leading-9 text-[1.1rem] whitespace-pre-line">
               {post.content}
             </div>
