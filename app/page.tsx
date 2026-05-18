@@ -1,10 +1,9 @@
 
-"use client"; // precisa ser client porque usa hooks e eventos do browser
+"use client"; 
 
 import { useState, useCallback } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 
-// importo todos os sections da página
 import Header   from "@/components/sections/Header";
 import Hero     from "@/components/sections/Hero";
 import Stats    from "@/components/sections/Stats";
@@ -16,14 +15,11 @@ import CTA      from "@/components/sections/CTA";
 import Footer   from "@/components/sections/Footer";
 import type { PolicyKey } from "@/components/sections/Footer";
 
-// componentes de UI compartilhados
 import InfiniteMarquee from "@/components/ui/InfiniteMarquee";
 import PolicyModal     from "@/components/ui/PolicyModal";
 
-// dados dos textos das políticas
 import { policyContent } from "@/lib/data";
 
-// título de cada modal de política
 const policyTitles: Record<PolicyKey, string> = {
   terms:        "Termos de Uso",
   privacy:      "Política de Privacidade",
@@ -93,10 +89,8 @@ export default function Home() {
         />
       </div>
 
-      {/* Header fixo no topo com navegação */}
       <Header onNavigate={scrollToSection} />
 
-      {/* Conteúdo principal da página - ordem das seções */}
       <main>
         <Hero       onNavigate={scrollToSection} /> {/* seção inicial com headline */}
         <InfiniteMarquee />                          {/* faixa rolante de serviços */}
@@ -108,13 +102,11 @@ export default function Home() {
         <CTA        onNavigate={scrollToSection} /> {/* call to action final */}
       </main>
 
-      {/* Rodapé com links e redes sociais */}
       <Footer
         onNavigate={scrollToSection}
-        onOpenPolicy={(key) => setActivePolicy(key)} // abre o modal certo
+        onOpenPolicy={(key) => setActivePolicy(key)} 
       />
 
-      {/* Modal de políticas - aparece ao clicar nos links do footer */}
       <PolicyModal
         isOpen={!!activePolicy}
         onClose={() => setActivePolicy(null)}

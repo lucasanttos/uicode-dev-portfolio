@@ -2,8 +2,7 @@ import { notFound } from "next/navigation";
 import { blogPosts } from "@/lib/blog";
 import type { Metadata } from "next";
 
-// tipagem correta para Next 15
-interface PageProps {
+ interface PageProps {
   params: Promise<{
     slug: string;
   }>;

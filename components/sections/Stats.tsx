@@ -1,6 +1,3 @@
-// Seção com os 4 números animados
-// ex: "47+ Projetos Entregues", "100% Taxa de Satisfação"
-// Os dados vêm de lib/data.tsx - stats[]
 
 "use client";
 
