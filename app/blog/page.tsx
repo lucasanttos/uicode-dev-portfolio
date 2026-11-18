@@ -1,54 +1,42 @@
-// Página principal do blog
-// Lista todos os artigos
-
 import Link from "next/link";
+import { ArrowLeft, ArrowUpRight, Code2 } from "lucide-react";
 import { blogPosts } from "@/lib/blog";
 
+// Mantém a leitura do blog no mesmo sistema editorial da página inicial.
 export default function BlogPage() {
   return (
-    <main className="min-h-screen bg-[#030303] text-white px-6 py-32">
-      <div className="max-w-5xl mx-auto">
+    <div className="site-shell blog-page">
+      <header className="site-header">
+        <Link className="wordmark" href="/" aria-label="UiCode, início">
+          <span className="wordmark-mark"><Code2 size={17} /></span>
+          <span>uicode<span className="wordmark-dot">.</span></span>
+        </Link>
+        <Link className="header-contact" href="/">Voltar ao portfólio <ArrowLeft size={15} /></Link>
+      </header>
 
-        {/* título */}
-        <h1 className="text-5xl font-bold mb-4">
-          Blog UiCode
-        </h1>
+      <main>
+      <section className="blog-intro">
+        <p className="eyebrow">CADERNO / UICODE.SITE</p>
+        <h1>Ideias para<br /><em>construir melhor.</em></h1>
+        <p>Notas práticas sobre produto digital, presença online e o trabalho por trás de uma boa experiência.</p>
+      </section>
 
-        <p className="text-slate-400 mb-16">
-          Conteúdos sobre sites, sistemas, SEO e crescimento digital.
-        </p>
+      <section className="blog-list" aria-label="Artigos publicados">
+        {blogPosts.map((post, index) => (
+          <Link className="blog-card" href={`/blog/${post.slug}`} key={post.slug}>
+            <span className="blog-card-index">0{index + 1}</span>
+            <div>
+              <span className="eyebrow">{post.keywords.slice(0, 2).join(" · ")}</span>
+              <h2>{post.title}</h2>
+              <p>{post.description}</p>
+            </div>
+            <ArrowUpRight className="blog-card-arrow" size={20} />
+          </Link>
+        ))}
+      </section>
 
-        {/* lista de artigos */}
-        <div className="grid gap-6">
-          {blogPosts.map((post) => (
-            <Link
-              key={post.slug}
-              href={`/blog/${post.slug}`}
-              className="block p-8 rounded-3xl border border-white/10 hover:border-cyan-500/40 transition-all bg-[#080808]"
-            >
-              <h2 className="text-3xl font-bold mb-3">
-                {post.title}
-              </h2>
-
-              <p className="text-slate-400">
-                {post.description}
-              </p>
-
-              {/* keywords */}
-              <div className="flex flex-wrap gap-2 mt-6">
-                {post.keywords.map((keyword) => (
-                  <span
-                    key={keyword}
-                    className="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs"
-                  >
-                    {keyword}
-                  </span>
-                ))}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </main>
+      </main>
+      <footer className="site-footer"><Link className="wordmark" href="/"><span className="wordmark-mark"><Code2 size={16} /></span><span>uicode<span className="wordmark-dot">.</span></span></Link><p>Design atento. Código bem pensado.</p><span>© {new Date().getFullYear()} UICODE.SITE</span></footer>
+    </div>
   );
 }

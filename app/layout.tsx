@@ -11,7 +11,7 @@ const siteName = "UiCode.site";
 
 // Descrição principal usada em SEO, Google, compartilhamentos e redes sociais.
 const siteDescription =
-  "Criação de sites profissionais, landing pages, e-commerces e sistemas web com design premium, performance, SEO técnico e foco em conversão.";
+  "Est\u00fadio independente de produto digital: design de interfaces e desenvolvimento web com clareza, inten\u00e7\u00e3o e cuidado nos detalhes.";
 
 // Palavras-chave principais.
 const siteKeywords = [
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   referrer: "origin-when-cross-origin",
 
   title: {
-    default: "Criação de Sites de Alta Conversão | UiCode.site",
+    default: "Design digital e desenvolvimento web | UiCode.site",
     template: "%s | UiCode.site",
   },
 
@@ -102,7 +102,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "UiCode.site | Sites profissionais que vendem mais",
+    title: "UiCode.site | Design atento, c\u00f3digo bem pensado",
     description: siteDescription,
     url: siteUrl,
     siteName,
@@ -120,7 +120,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "UiCode.site | Criação de Sites de Alta Conversão",
+    title: "UiCode.site | Design digital e desenvolvimento web",
     description: siteDescription,
     images: ["/uicode.jpeg"],
   },
@@ -152,8 +152,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#030303",
-  colorScheme: "dark",
+  themeColor: "#f2f0e9",
+  colorScheme: "light",
 };
 
 export default function RootLayout({
@@ -175,7 +175,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body className="min-h-screen bg-[#030303] text-white antialiased selection:bg-cyan-300 selection:text-black">
+      <body>
         {children}
       </body>
     </html>
