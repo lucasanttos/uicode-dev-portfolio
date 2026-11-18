@@ -150,19 +150,11 @@ export const services: Service[] = [
 // value = número final da animação.
 
 export const stats: Stat[] = [
-  { value: 47, suffix: "+", label: "Projetos Entregues", icon: Rocket },
-  { value: 100, suffix: "%", label: "Taxa de Satisfação", icon: Star },
-  {
-    value: 3,
-    suffix: "x",
-    prefix: "até ",
-    label: "Aumento em Conversão",
-    icon: TrendingUp,
-  },
-  { value: 24, suffix: "h", label: "Suporte VIP", icon: Clock },
+  { value: 5, suffix: "+", label: "Projetos em destaque", icon: Rocket },
+  { value: 0, suffix: "", label: "Métricas verificadas", icon: Star },
+  { value: 3, suffix: " áreas", label: "Web, produto e operação", icon: TrendingUp },
+  { value: 1, suffix: " a 1", label: "Atendimento direto", icon: Clock },
 ];
-
-// ─────────────────────────────────────────────────────────────
 // PROJETOS / CASES
 // ─────────────────────────────────────────────────────────────
 // Imagens devem ficar dentro da pasta /public.
@@ -172,11 +164,11 @@ export const projects: Project[] = [
   {
     id: 1,
     title: "Dr. Pedro Elino",
-    category: "Site Institucional Premium",
-    result: "Página 1 do Google",
+    category: "Site institucional",
+    result: "Site institucional",
     description:
-      "Identidade digital de autoridade máxima para cirurgião-dentista. Design 'Dark & Clean' que transmite sofisticação, combinado com SEO técnico avançado que conquistou a primeira página do Google em 60 dias.",
-    tech: ["Next.js", "SEO Local", "Web Performance"],
+      "Site institucional para profissional de odontologia, com identidade visual escura, estrutura responsiva e conteúdo organizado para apresentar serviços e facilitar o contato.",
+    tech: ["Next.js", "SEO local", "Performance web"],
     color: "from-blue-500 to-indigo-600",
     textAccent: "text-blue-400",
     link: "https://drpedro-elino.vercel.app/",
@@ -185,10 +177,10 @@ export const projects: Project[] = [
   {
     id: 2,
     title: "FL Sports",
-    category: "E-commerce Premium",
-    result: "Alta Conversão e Top 1 Google",
+    category: "E-commerce",
+    result: "Loja virtual",
     description:
-      "E-commerce de alta performance focado em maximizar vendas. Possui carrinho inteligente com cálculo automático de taxas, sistema de combos para aumento de ticket médio e um fluxo de checkout fluido integrado diretamente ao WhatsApp da loja.",
+      "Loja virtual com catálogo de produtos, carrinho, cálculo de taxas e fluxo de finalização integrado ao WhatsApp da loja.",
     tech: ["Next.js", "Tailwind CSS", "TypeScript"],
     color: "from-zinc-900 to-black",
     textAccent: "text-white",
@@ -198,11 +190,11 @@ export const projects: Project[] = [
   {
     id: 3,
     title: "Pet Green Veterinária",
-    category: "Landing Page de Alta Conversão",
-    result: "+180% em agendamentos",
+    category: "Landing page",
+    result: "Landing page veterinária",
     description:
-      "Presença digital completa para clínica veterinária premium. Estratégia focada em conversão mobile com integração WhatsApp, UX simplificada e gatilhos de confiança que triplicaram os agendamentos online.",
-    tech: ["React", "UI/UX Design", "WhatsApp API"],
+      "Landing page responsiva para clínica veterinária, com apresentação de serviços e acesso direto ao atendimento por WhatsApp.",
+    tech: ["React", "UI/UX", "WhatsApp"],
     color: "from-emerald-500 to-teal-600",
     textAccent: "text-emerald-400",
     link: "https://pet-green.netlify.app",
@@ -211,19 +203,30 @@ export const projects: Project[] = [
   {
     id: 4,
     title: "La Famille Tattoo",
-    category: "Plataforma de Agendamento",
-    result: "Leads 5x mais qualificados",
+    category: "Fluxo de triagem",
+    result: "Atendimento organizado",
     description:
-      "Muito além de um portfólio bonito. Sistema inteligente de triagem que filtra clientes e entrega apenas leads qualificados para o estúdio, eliminando conversas improdutivas e aumentando o ticket médio.",
-    tech: ["React SPA", "Automação", "CRO"],
+      "Experiência web para estúdio de tatuagem, com perguntas de triagem que organizam o pedido e preparam uma mensagem para contato pelo WhatsApp.",
+    tech: ["React", "Automação", "UX"],
     color: "from-amber-500 to-orange-600",
     textAccent: "text-amber-400",
     link: "https://fernandeswebsite.netlify.app/",
     image: "/tattoo.png",
   },
+  {
+    id: 5,
+    title: "UiDelivery",
+    category: "Plataforma de delivery",
+    result: "Produto em desenvolvimento",
+    description:
+      "Plataforma web para operação de delivery, com experiência para clientes e ferramentas administrativas. O projeto usa Next.js, TypeScript e Supabase e segue em evolução.",
+    tech: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
+    color: "from-orange-500 to-rose-600",
+    textAccent: "text-orange-400",
+    link: "https://github.com/lucasanttos/uidelivery",
+    image: "/uicode.jpeg",
+  },
 ];
-
-// ─────────────────────────────────────────────────────────────
 // HABILIDADES
 // ─────────────────────────────────────────────────────────────
 // Barras de progresso da seção de tecnologia.

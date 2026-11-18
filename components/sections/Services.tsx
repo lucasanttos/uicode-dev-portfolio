@@ -13,11 +13,7 @@ import { services } from "@/lib/data";
 const cn = (...classes: (string | boolean | undefined)[]) =>
   classes.filter(Boolean).join(" ");
 
-interface ServicesProps {
-  onNavigate: (id: string) => void;
-}
-
-export default function Services({ onNavigate }: ServicesProps) {
+export default function Services() {
   return (
     <section id="services" className="py-32 relative">
       <div className="container px-6 mx-auto max-w-7xl">
@@ -93,13 +89,13 @@ export default function Services({ onNavigate }: ServicesProps) {
           viewport={{ once: true }}
           className="mt-12 text-center"
         >
-          <button
-            onClick={() => onNavigate("contact")}
+          <a
+            href="#contact"
             className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors font-medium"
           >
             Não encontrou o que precisa? Fale comigo
             <ArrowRight size={14} />
-          </button>
+          </a>
         </motion.div>
       </div>
     </section>

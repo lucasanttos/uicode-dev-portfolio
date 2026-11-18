@@ -9,17 +9,13 @@ import ShinyButton  from "@/components/ui/ShinyButton";
 import Badge        from "@/components/ui/Badge";
 import GradientText from "@/components/ui/GradientText";
 
-interface CTAProps {
-  onNavigate: (id: string) => void;
-}
-
-export default function CTA({ onNavigate }: CTAProps) {
+export default function CTA() {
   // ícones e textos de garantia que aparecem embaixo dos botões
   const guarantees = [
     { icon: Shield,        text: "Sem fidelidade"          },
     { icon: RefreshCw,     text: "Cancele quando quiser"   },
-    { icon: CheckCircle2,  text: "Resultados garantidos"   },
-    { icon: Clock,         text: "Entrega em até 14 dias"  },
+    { icon: CheckCircle2,  text: "Escopo alinhado antes do projeto" },
+    { icon: Clock,         text: "Prazos definidos por projeto"  },
   ];
 
   return (
@@ -65,13 +61,12 @@ export default function CTA({ onNavigate }: CTAProps) {
             </ShinyButton>
 
             {/* CTA secundário - planos */}
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              onClick={() => onNavigate("pricing")}
+            <a
+              href="#pricing"
               className="px-8 py-5 rounded-2xl border border-white/10 text-slate-300 font-bold hover:border-white/20 hover:text-white hover:bg-white/5 transition-all text-base"
             >
               Ver planos e preços
-            </motion.button>
+            </a>
           </div>
 
           {/* garantias embaixo dos botões */}

@@ -17,7 +17,6 @@ import {
   Layers,
   MousePointer2,
   Sparkles,
-  TrendingUp,
 } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import GradientText from "@/components/ui/GradientText";
@@ -276,7 +275,7 @@ function ProjectShowcaseCard({
             {/* Badge de resultado. */}
             <div className="absolute left-4 top-4 sm:left-5 sm:top-5">
               <div className="flex items-center gap-2 rounded-2xl border border-emerald-300/20 bg-black/65 px-3 py-2 shadow-xl backdrop-blur-xl">
-                <TrendingUp size={13} className="text-emerald-300" />
+                <MousePointer2 size={13} className="text-cyan-200" />
                 <span className="text-xs font-black text-emerald-300">
                   {project.result}
                 </span>
@@ -344,19 +343,19 @@ function ProjectShowcaseCard({
         </div>
 
         {/* Resultado alcançado. */}
-        <div className="relative overflow-hidden rounded-3xl border border-emerald-300/10 bg-emerald-300/[0.045] p-5">
-          <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-emerald-300/10 blur-3xl" />
+        <div className="relative overflow-hidden rounded-3xl border border-cyan-300/10 bg-cyan-300/[0.045] p-5">
+          <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-300/10 blur-3xl" />
 
           <div className="relative flex items-start gap-4">
-            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-emerald-300/15 bg-emerald-300/10">
-              <TrendingUp size={18} className="text-emerald-300" />
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-cyan-300/15 bg-cyan-300/10">
+              <Layers size={18} className="text-cyan-300" />
             </div>
 
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300/70">
-                Resultado alcançado
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300/70">
+                Sobre o projeto
               </p>
-              <p className="mt-1 text-base font-black text-emerald-300">
+              <p className="mt-1 text-base font-black text-cyan-300">
                 {project.result}
               </p>
             </div>

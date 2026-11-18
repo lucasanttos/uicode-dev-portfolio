@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { ArrowRight, Code, Menu, Sparkles } from "lucide-react";
 import MobileMenu from "@/components/MobileMenu";
 
@@ -18,13 +17,8 @@ const navItems = [
   { label: "Contato", id: "contact" },
 ];
 
-interface HeaderProps {
-  onNavigate: (id: string) => void;
-}
-
-export default function Header({ onNavigate }: HeaderProps) {
+export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Detecta scroll de forma performática usando requestAnimationFrame.
@@ -37,11 +31,7 @@ export default function Header({ onNavigate }: HeaderProps) {
 
       window.requestAnimationFrame(() => {
         const currentScroll = window.scrollY;
-        const pageHeight =
-          document.documentElement.scrollHeight - window.innerHeight;
-
         setIsScrolled(currentScroll > 50);
-        setScrollProgress(pageHeight > 0 ? currentScroll / pageHeight : 0);
 
         ticking = false;
       });
@@ -57,15 +47,18 @@ export default function Header({ onNavigate }: HeaderProps) {
   }, []);
 
   function handleNavigate(id: string) {
-    onNavigate(id);
+    const target = document.getElementById(id);
+    target?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      block: "start",
+    });
   }
 
   return (
     <>
-      <motion.header
-        initial={{ y: -90, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+      <header
         className={cn(
           "fixed left-0 top-0 z-50 w-full transition-all duration-500",
           isScrolled
@@ -73,13 +66,6 @@ export default function Header({ onNavigate }: HeaderProps) {
             : "py-5 md:py-6"
         )}
       >
-        {/* Linha de progresso do scroll da página. */}
-        <motion.div
-          aria-hidden="true"
-          className="absolute left-0 top-0 h-px origin-left bg-gradient-to-r from-cyan-300 via-white to-violet-400"
-          style={{ scaleX: scrollProgress }}
-        />
-
         {/* Glow superior discreto, deixando o header mais premium. */}
         <div
           aria-hidden="true"
@@ -110,15 +96,10 @@ export default function Header({ onNavigate }: HeaderProps) {
             />
 
             {/* Logo - clique volta ao topo. */}
-            <motion.button
-              type="button"
-              onClick={() => handleNavigate("home")}
-              aria-label="Voltar para o início"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              animate={{ scale: isScrolled ? 0.92 : 1 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-10 flex items-center gap-2 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+          <a
+            href="#home"
+            aria-label="Voltar para o início"
+            className={cn("relative z-10 flex items-center gap-2 rounded-xl outline-none transition-transform duration-300 focus-visible:ring-2 focus-visible:ring-cyan-300/70", !isScrolled && "hover:scale-[1.03]")}
             >
               <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-xl bg-gradient-to-br from-cyan-300 via-blue-500 to-violet-600 shadow-[0_0_28px_rgba(34,211,238,0.32)]">
                 <span className="absolute inset-0 translate-x-[-120%] bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 hover:translate-x-[120%]" />
@@ -130,7 +111,7 @@ export default function Header({ onNavigate }: HeaderProps) {
                 <span className="text-cyan-300">Code</span>
                 <span className="text-white/35">.site</span>
               </span>
-            </motion.button>
+          </a>
 
             {/* Navegação desktop. */}
             <nav
@@ -157,10 +138,8 @@ export default function Header({ onNavigate }: HeaderProps) {
 
             <div className="relative z-10 flex items-center gap-2 sm:gap-3">
               {/* CTA desktop. */}
-              <motion.button
+              <button
                 type="button"
-                whileHover={{ scale: 1.035 }}
-                whileTap={{ scale: 0.97 }}
                 onClick={() => handleNavigate("contact")}
                 className="group relative hidden items-center gap-2 overflow-hidden rounded-2xl bg-white px-5 py-2.5 text-sm font-black text-black shadow-[0_0_30px_rgba(255,255,255,0.10)] transition-all hover:bg-cyan-50 md:flex"
               >
@@ -175,12 +154,11 @@ export default function Header({ onNavigate }: HeaderProps) {
 
                 {/* Efeito shimmer no botão. */}
                 <span className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-cyan-200/50 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-              </motion.button>
+              </button>
 
               {/* Botão mobile. */}
-              <motion.button
+              <button
                 type="button"
-                whileTap={{ scale: 0.94 }}
                 aria-label="Abrir menu"
                 aria-expanded={mobileMenuOpen}
                 onClick={() => setMobileMenuOpen(true)}
@@ -192,11 +170,11 @@ export default function Header({ onNavigate }: HeaderProps) {
                 )}
               >
                 <Menu size={21} />
-              </motion.button>
+              </button>
             </div>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       {/* Menu mobile separado para ficar acima de toda a página. */}
       <MobileMenu
@@ -205,7 +183,7 @@ export default function Header({ onNavigate }: HeaderProps) {
         navItems={navItems}
         onNavigate={(id: string) => {
           setMobileMenuOpen(false);
-          onNavigate(id);
+          handleNavigate(id);
         }}
       />
     </>

@@ -1,5 +1,5 @@
 // Rodapé com logo, navegação, redes sociais e links de política
-// Os modais de política são abertos via onOpenPolicy que vem do page.tsx
+// Os modais de política são abertos por um evento tratado na ilha client da home.
 
 "use client";
 
@@ -17,12 +17,19 @@ const navItems = [
   { label: "Contato",        id: "contact"  },
 ];
 
-interface FooterProps {
-  onNavigate: (id: string) => void;
-  onOpenPolicy: (key: PolicyKey) => void;
-}
+export default function Footer() {
+  function navigateTo(id: string) {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      block: "start",
+    });
+  }
 
-export default function Footer({ onNavigate, onOpenPolicy }: FooterProps) {
+  function openPolicy(key: PolicyKey) {
+    window.dispatchEvent(new CustomEvent("uicode:open-policy", { detail: key }));
+  }
   return (
     <footer className="border-t border-white/5 bg-[#020202] relative z-10">
       <div className="container mx-auto px-6 max-w-7xl">
@@ -54,7 +61,7 @@ export default function Footer({ onNavigate, onOpenPolicy }: FooterProps) {
               {navItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => onNavigate(item.id)}
+                  onClick={() => navigateTo(item.id)}
                   className="text-sm text-slate-500 hover:text-white text-left transition-colors w-fit"
                 >
                   {item.label}
@@ -115,7 +122,7 @@ export default function Footer({ onNavigate, onOpenPolicy }: FooterProps) {
             ).map(({ key, icon: Icon, label }) => (
               <button
                 key={key}
-                onClick={() => onOpenPolicy(key)}
+                onClick={() => openPolicy(key)}
                 className="hover:text-cyan-400 transition-colors flex items-center gap-1.5"
               >
                 <Icon size={12} /> {label}

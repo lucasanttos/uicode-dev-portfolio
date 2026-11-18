@@ -3,24 +3,19 @@
 
 "use client";
 
-import { motion } from "framer-motion";
 import { marqueeItems } from "@/lib/data";
 
 export default function InfiniteMarquee() {
-  // triplico os itens para não ter espaço vazio durante o loop
-  const repeated = [...marqueeItems, ...marqueeItems, ...marqueeItems];
+  // Duplica a faixa para manter a repetição contínua sem recalcular a animação em JavaScript.
+  const repeated = [...marqueeItems, ...marqueeItems];
 
   return (
     <div className="w-full border-y border-white/5 py-5 overflow-hidden flex whitespace-nowrap relative z-10">
       {/* gradiente nas bordas para suavizar o início e fim */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#030303] via-transparent to-[#030303] z-10 pointer-events-none" />
 
-      {/* o div que se move da direita pra esquerda infinitamente */}
-      <motion.div
-        className="flex gap-10 items-center"
-        animate={{ x: [0, -1200] }}           // move 1200px para esquerda
-        transition={{ duration: 25, ease: "linear", repeat: Infinity }} // loop eterno
-      >
+      {/* A animação CSS usa duas cópias para fechar o ciclo sem salto. */}
+      <div className="flex w-max animate-marquee items-center gap-10 motion-reduce:animate-none">
         {repeated.map((item, i) => {
           const Icon = item.icon;
           return (
@@ -35,7 +30,7 @@ export default function InfiniteMarquee() {
             </div>
           );
         })}
-      </motion.div>
+      </div>
     </div>
   );
 }

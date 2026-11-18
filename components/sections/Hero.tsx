@@ -17,13 +17,8 @@ import {
 } from "lucide-react";
 import SplitText from "@/components/ui/SplitText";
 import GlowCard from "@/components/ui/GlowCard";
-import MagneticButton from "@/components/ui/MagneticButton";
 import MarqueeStrip from "@/components/ui/MarqueeStrip";
 import CountUp from "@/components/ui/CountUp";
-
-interface HeroProps {
-  onNavigate: (id: string) => void;
-}
 
 /*
   Itens do marquee inferior.
@@ -76,9 +71,9 @@ const SERVICES = [
   Edite os números conforme seus resultados reais.
 */
 const STATS = [
-  { end: 47, suffix: "+", label: "Projetos entregues" },
-  { end: 98, suffix: "%", label: "Aprovação média" },
-  { end: 7, suffix: "d", label: "Entrega média" },
+  { end: 5, suffix: "+", label: "Projetos em destaque" },
+  { end: 0, suffix: "", label: "Métricas verificadas" },
+  { end: 3, suffix: " áreas", label: "Web, produto e operação" },
 ];
 
 /*
@@ -116,6 +111,7 @@ const PROJECT_SLIDES = [
   },
 ];
 
+// Navega até uma seção usando rolagem instantânea para quem reduziu movimento.
 /*
   Função auxiliar para manter o slider em loop.
 */
@@ -128,7 +124,7 @@ function getCircularOffset(index: number, activeIndex: number, total: number) {
   return offset;
 }
 
-export default function Hero({ onNavigate }: HeroProps) {
+export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -308,8 +304,8 @@ export default function Hero({ onNavigate }: HeroProps) {
                   transition={{ delay: 1.02, duration: 0.7 }}
                   className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
                 >
-                  <MagneticButton
-                    onClick={() => onNavigate("pricing")}
+                  <a
+                    href="#pricing"
                     className="group relative inline-flex items-center justify-center overflow-hidden rounded-2xl bg-white px-7 py-4 text-sm font-black tracking-wide text-black transition-colors hover:bg-slate-100 sm:px-8"
                   >
                     <span className="relative z-10 flex items-center gap-3">
@@ -320,10 +316,10 @@ export default function Hero({ onNavigate }: HeroProps) {
                       />
                     </span>
                     <span className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                  </MagneticButton>
+                  </a>
 
-                  <MagneticButton
-                    onClick={() => onNavigate("projects")}
+                  <a
+                    href="#projects"
                     className="group inline-flex items-center justify-center gap-3 rounded-2xl border border-white/[0.10] bg-white/[0.035] px-7 py-4 text-sm font-bold text-slate-300 backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/[0.07] hover:text-white sm:px-8"
                   >
                     Ver Projetos
@@ -331,7 +327,7 @@ export default function Hero({ onNavigate }: HeroProps) {
                       size={15}
                       className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                     />
-                  </MagneticButton>
+                  </a>
                 </motion.div>
 
                 {/* Estatísticas no mobile para não deixar a dobra vazia. */}

@@ -1,74 +1,33 @@
-Olá, eu sou o Lucas (UiCode.dev) 👋
+ UiCode.site — portfólio
 
-🚀 Desenvolvedor Fullstack | Criando experiências digitais memoráveis
+Portfólio e site institucional da UiCode.site, construído com Next.js, React, TypeScript e Tailwind CSS.
 
-👨‍💻 Sobre Mim
+## Conteúdo
 
-Sou um desenvolvedor apaixonado por transformar ideias complexas em interfaces elegantes e funcionais. Meu foco vai além do código: busco criar soluções que gerem valor real para o negócio e uma experiência incrível para o usuário.
+- Apresentação de serviços de desenvolvimento web.
+- Projetos selecionados com links para suas páginas ou repositórios.
+- Informações de contato e artigos publicados no blog.
 
-Atualmente, estou me especializando no ecossistema JavaScript (React, Next.js, Node.js) e buscando oportunidades para aplicar minha visão de "Code + Design" em projetos desafiadores.
+## Desenvolvimento local
 
-🛠️ Tech Stack & Ferramentas
+Requisitos: Node.js compatível com Next.js 15.
 
-Minha caixa de ferramentas inclui as tecnologias mais modernas do mercado:
+```bash
+npm install
+npm run dev
+```
 
-Frontend
+Abra `http://localhost:3000` para visualizar o site.
 
-Backend & Database
+## Verificações
 
-DevOps & Design
+```bash
+npm run lint
+npm run build
+```
 
-💻 Projetos em Destaque
+## Repositório
 
-Aqui estão alguns projetos recentes onde apliquei conceitos de UX/UI avançado, SEO e Performance:
+Código-fonte: https://github.com/lucasanttos/uicode-dev-portfolio
 
-1. 🐾 Pet Green Veterinária
-
-Landing Page de Alta Conversão
-
-O Desafio: Criar uma presença digital para uma clínica local que facilitasse o agendamento.
-
-A Solução: Design mobile-first com botões de ação flutuantes e integração direta com WhatsApp API.
-
-Stack: React, Framer Motion, Tailwind CSS.
-
-2. 🦷 Dr. Pedro Elino
-
-Plataforma para Profissional de Saúde
-
-O Desafio: Transmitir autoridade e confiança para um cirurgião-dentista.
-
-A Solução: Layout premium "Dark & Clean", focado em SEO local e captação de pacientes.
-
-Stack: Next.js, TypeScript, SEO Optimization.
-
-3. ⚜️ Tatuagem La Famille
-
-SPA com Automação de Triagem
-
-O Desafio: Otimizar o tempo de atendimento do estúdio filtrando clientes curiosos.
-
-A Solução: Aplicação que guia o usuário e gera um link de WhatsApp pré-formatado com os detalhes da tattoo.
-
-Stack: React, SPA, Lógica de Negócio Customizada.
-
-📊 GitHub Stats
-
-<div align="center">
-<a href="https://www.google.com/search?q=https://github.com/lucasantos">
-<img height="160em" src="https://www.google.com/search?q=https://github-readme-stats.vercel.app/api%3Fusername%3Dlucasantos%26show_icons%3Dtrue%26theme%3Dtokyonight%26include_all_commits%3Dtrue%26count_private%3Dtrue"/>
-<img height="160em" src="https://www.google.com/search?q=https://github-readme-stats.vercel.app/api/top-langs/%3Fusername%3Dlucasantos%26layout%3Dcompact%26theme%3Dtokyonight"/>
-</a>
-</div>
-
-📫 Vamos conversar?
-
-Estou disponível para contratação (PJ/CLT) e projetos freelance.
-
-Portfólio: uicode.site
-
-Email: uicode.dev2026@gmail.com
-
-Localização: Brasil 🇧🇷 (Disponível para Remoto)
-
-“Code is like humor. When you have to explain it, it’s bad.” – Cory House
+Site: https://uicode.site
