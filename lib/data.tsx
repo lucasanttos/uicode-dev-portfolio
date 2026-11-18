@@ -172,7 +172,7 @@ export const projects: Project[] = [
     color: "from-blue-500 to-indigo-600",
     textAccent: "text-blue-400",
     link: "https://drpedro-elino.vercel.app/",
-    image: "/drpedro.webp",
+    image: "/drpedro.png",
   },
   {
     id: 2,
@@ -185,7 +185,7 @@ export const projects: Project[] = [
     color: "from-zinc-900 to-black",
     textAccent: "text-white",
     link: "https://www.flsports.store/",
-    image: "/flsports.webp",
+    image: "/flsports.jpg",
   },
   {
     id: 3,
@@ -198,7 +198,7 @@ export const projects: Project[] = [
     color: "from-emerald-500 to-teal-600",
     textAccent: "text-emerald-400",
     link: "https://pet-green.netlify.app",
-    image: "/petgreen.webp",
+    image: "/petgreen.png",
   },
   {
     id: 4,
@@ -211,7 +211,7 @@ export const projects: Project[] = [
     color: "from-amber-500 to-orange-600",
     textAccent: "text-amber-400",
     link: "https://fernandeswebsite.netlify.app/",
-    image: "/tattoo.webp",
+    image: "/tattoo.png",
   },
   {
     id: 5,
@@ -224,7 +224,7 @@ export const projects: Project[] = [
     color: "from-orange-500 to-rose-600",
     textAccent: "text-orange-400",
     link: "https://github.com/lucasanttos/uidelivery",
-    image: "/uicode.webp",
+    image: "/uicode.jpeg",
   },
 ];
 // HABILIDADES
