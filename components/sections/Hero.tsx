@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -111,7 +111,6 @@ const PROJECT_SLIDES = [
   },
 ];
 
-// Navega até uma seção usando rolagem instantânea para quem reduziu movimento.
 /*
   Função auxiliar para manter o slider em loop.
 */
@@ -127,6 +126,7 @@ function getCircularOffset(index: number, activeIndex: number, total: number) {
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
+  const isHeroVisible = useInView(containerRef, { amount: 0.1 });
   const prefersReducedMotion = useReducedMotion();
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -157,14 +157,36 @@ export default function Hero() {
     Caso o usuário tenha preferência por menos movimento, o autoplay é desligado.
   */
   useEffect(() => {
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || !isHeroVisible) return;
 
-    const timer = window.setInterval(() => {
+    let timer: number | undefined;
+    const advanceSlide = () => {
       setActiveSlide((current) => (current + 1) % PROJECT_SLIDES.length);
-    }, 3600);
+    };
+    const startTimer = () => {
+      if (timer === undefined && !document.hidden) {
+        timer = window.setInterval(advanceSlide, 3600);
+      }
+    };
+    const stopTimer = () => {
+      if (timer !== undefined) {
+        window.clearInterval(timer);
+        timer = undefined;
+      }
+    };
+    const handleVisibilityChange = () => {
+      if (document.hidden) stopTimer();
+      else startTimer();
+    };
 
-    return () => window.clearInterval(timer);
-  }, [prefersReducedMotion]);
+    startTimer();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      stopTimer();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [isHeroVisible, prefersReducedMotion]);
 
   /*
     Spotlight interativo no mouse.

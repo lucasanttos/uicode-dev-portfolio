@@ -6,7 +6,6 @@ import {
   motion,
   useMotionValue,
   useReducedMotion,
-  useScroll,
   useSpring,
   useTransform,
 } from "framer-motion";
@@ -160,27 +159,7 @@ function ProjectShowcaseCard({
   const rotateY = useTransform(smoothMouseX, [-0.5, 0.5], [9, -9]);
   const rotateX = useTransform(smoothMouseY, [-0.5, 0.5], [-7, 7]);
 
-  /*
-    Parallax suave durante o scroll.
-    Em usuários com redução de movimento ativada, o efeito é desligado.
-  */
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"],
-  });
-
-  const imageY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    prefersReducedMotion ? ["0%", "0%"] : ["-5%", "5%"],
-  );
-
-  const contentY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    prefersReducedMotion ? ["0px", "0px"] : ["24px", "-24px"],
-  );
-
+  // Mantém a inclinação 3D no ponteiro sem assinar um observador contínuo de scroll por card.
   function handleMouseMove(event: MouseEvent<HTMLDivElement>) {
     const element = cardRef.current;
 
@@ -217,7 +196,6 @@ function ProjectShowcaseCard({
       {/* Área visual do projeto. */}
       <motion.div
         style={{
-          y: imageY,
           rotateX: prefersReducedMotion ? 0 : rotateX,
           rotateY: prefersReducedMotion ? 0 : rotateY,
           transformStyle: "preserve-3d",
@@ -265,7 +243,8 @@ function ProjectShowcaseCard({
               alt={project.title}
               fill
               className="object-cover object-top opacity-90 transition-transform duration-[2600ms] ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 55vw"
+              sizes="(max-width: 1023px) 100vw, 55vw"
+              loading="lazy"
             />
 
             {/* Gradientes para leitura e acabamento. */}
@@ -309,7 +288,6 @@ function ProjectShowcaseCard({
 
       {/* Conteúdo textual do projeto. */}
       <motion.div
-        style={{ y: contentY }}
         className={cn(
           "order-2 space-y-6",
           isReversed && "lg:order-1",

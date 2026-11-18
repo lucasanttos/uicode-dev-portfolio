@@ -3,7 +3,7 @@
 
 import { motion } from "framer-motion";
 import SpotlightCard    from "@/components/ui/SpotlightCard";
-import AnimatedCounter  from "@/components/ui/AnimatedCounter";
+import CountUp from "@/components/ui/CountUp";
 import { stats } from "@/lib/data";
 
 export default function Stats() {
@@ -29,7 +29,7 @@ export default function Stats() {
                   </div>
                   {/* número animado */}
                   <div className="text-3xl font-bold text-white mb-1 font-mono">
-                    <AnimatedCounter value={stat.value} suffix={stat.suffix} prefix={stat.prefix} />
+                    <CountUp end={stat.value} suffix={stat.suffix} prefix={stat.prefix} />
                   </div>
                   {/* label embaixo */}
                   <p className="text-xs text-slate-500 font-medium">{stat.label}</p>

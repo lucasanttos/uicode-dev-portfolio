@@ -158,7 +158,7 @@ export const stats: Stat[] = [
 // PROJETOS / CASES
 // ─────────────────────────────────────────────────────────────
 // Imagens devem ficar dentro da pasta /public.
-// Exemplo: public/drpedro.png pode ser usado como "/drpedro.png".
+// Exemplo: public/drpedro.webp pode ser usado como "/drpedro.webp".
 
 export const projects: Project[] = [
   {
@@ -172,7 +172,7 @@ export const projects: Project[] = [
     color: "from-blue-500 to-indigo-600",
     textAccent: "text-blue-400",
     link: "https://drpedro-elino.vercel.app/",
-    image: "/drpedro.png",
+    image: "/drpedro.webp",
   },
   {
     id: 2,
@@ -185,7 +185,7 @@ export const projects: Project[] = [
     color: "from-zinc-900 to-black",
     textAccent: "text-white",
     link: "https://www.flsports.store/",
-    image: "/flsports.jpg",
+    image: "/flsports.webp",
   },
   {
     id: 3,
@@ -198,7 +198,7 @@ export const projects: Project[] = [
     color: "from-emerald-500 to-teal-600",
     textAccent: "text-emerald-400",
     link: "https://pet-green.netlify.app",
-    image: "/petgreen.png",
+    image: "/petgreen.webp",
   },
   {
     id: 4,
@@ -211,7 +211,7 @@ export const projects: Project[] = [
     color: "from-amber-500 to-orange-600",
     textAccent: "text-amber-400",
     link: "https://fernandeswebsite.netlify.app/",
-    image: "/tattoo.png",
+    image: "/tattoo.webp",
   },
   {
     id: 5,
@@ -224,7 +224,7 @@ export const projects: Project[] = [
     color: "from-orange-500 to-rose-600",
     textAccent: "text-orange-400",
     link: "https://github.com/lucasanttos/uidelivery",
-    image: "/uicode.jpeg",
+    image: "/uicode.webp",
   },
 ];
 // HABILIDADES
